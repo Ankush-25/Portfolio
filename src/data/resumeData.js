@@ -1,53 +1,83 @@
-// Resume data will be stored here as a JavaScript object
 export const resumeData = {
-  // Personal information
-  name: "Your Name",
-  title: "Web Developer",
-  email: "your.email@example.com",
-  phone: "(123) 456-7890",
-  location: "City, Country",
-  
-  // Social media links
-  social: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-    twitter: "https://twitter.com/yourusername"
+  personal: {
+    name: "Ankit Bhandari",
+    title: "Software Engineer",
+    email: "bhandariji1398@gmail.com",
+    phone: "+91-6397098909",
+    location: "Dehradun, India",
+    tagline: "Dedicated | Flexible | Quick Learner",
+    about: "Hi, I'm Ankit Bhandari, a passionate software engineer with a deep love for full-stack development, machine learning, and automation.",
+    social: {
+      github: "https://github.com/Ankush-25",
+      linkedin: "https://linkedin.com/in/ankit-bhandari25",
+    }
   },
-  
-  // About section
-  about: "A brief description about yourself and your professional background.",
-  
-  // Skills
-  skills: [
-    "JavaScript", "React", "HTML/CSS", "Node.js", "Git"
-  ],
-  
-  // Work experience
+
+  skills: {
+    languages: ["JavaScript (ES6+)", "Python", "HTML5", "CSS3", "C"],
+    frameworks: ["React.js", "Node.js", "Express.js", "REST API's", "Socket.IO"],
+    databases: ["MongoDB", "SQL"],
+    tools: ["Git", "GitHub", "AWS Amplify", "Postman", "TensorFlow", "Scikit-learn", "Pandas", "NumPy"],
+    concepts: ["JWT Authentication", "Agile", "CI/CD", "Data Preprocessing", "Time-Series Analysis"]
+  },
+
   experience: [
     {
-      title: "Job Title",
-      company: "Company Name",
-      period: "Jan 2020 - Present",
-      description: "Brief description of your role and achievements."
+      company: "Acroknacks Technology Solutions Pvt Ltd",
+      position: "Software Trainee Engineer",
+      period: "Jan 2025 – Feb 2025",
+      description: [
+        "Built dynamic scheduling system in React.js (boosted efficiency by 30%)",
+        "Worked with REST APIs, JWT, Axios, Git, Bitbucket",
+        "Used JIRA, Agile methodology"
+      ]
+    },
+    {
+      company: "Vigyapanam Pvt. Ltd",
+      position: "Frontend Developer Intern",
+      period: "Jun 2024 – Dec 2024",
+      description: [
+        "Created landing pages for 5+ product campaigns (25% more engagement)",
+        "Optimized speed, implemented SEO-friendly HTML/CSS"
+      ]
     }
   ],
-  
-  // Education
+
   education: [
     {
-      degree: "Degree Name",
-      institution: "University Name",
-      period: "2016 - 2020"
+      degree: "Master of Computer Applications (MCA)",
+      institution: "Shri Guru Ram Rai University, Dehradun",
+      period: "2023 – 2025"
+    },
+    {
+      degree: "Bachelor of Science (B.Sc)",
+      institution: "HNB Garhwal University",
+      period: "2020 – 2023"
     }
   ],
-  
-  // Projects
+
   projects: [
     {
-      title: "Project Name",
-      description: "Brief description of the project.",
-      technologies: ["React", "Node.js", "MongoDB"],
-      link: "#"
+      title: "PersoGitHub – GitHub Workflow Application",
+      description: "A comprehensive GitHub workflow management application.",
+      technologies: ["MERN Stack", "AWS S3", "CLI", "JWT", "Amplify"],
+      link: "https://main.dy5476jsnmpy0.amplifyapp.com/auth"
+    },
+    {
+      title: "Stock Price Prediction",
+      description: "Machine learning model for stock price forecasting.",
+      technologies: ["ML", "LSTM", "Linear Regression", "Yahoo Finance", "Python"],
+      link: "https://github.com/Ankush-25/Stock-Market-prediction-Model"
+    },
+    {
+      title: "AI Voice Assistant",
+      description: "Voice-controlled AI assistant with natural language processing.",
+      technologies: ["Python", "Gemini API", "Speech Recognition", "TTS"]
     }
+  ],
+
+  certifications: [
+    "ISRO Geo Data Analysis",
+    "C Programming – Great Learning"
   ]
 };
