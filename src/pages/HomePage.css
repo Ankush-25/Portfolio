@@ -1,33 +1,88 @@
 /* Home Page Styles */
 .home-page {
   width: 100%;
-  overflow: hidden;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  flex: 1 0 auto;
+  position: relative;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
 }
 
 .section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
+  width: 100%;
   position: relative;
-  padding: 100px 0;
   overflow: hidden;
 }
 
+/* Home section specific styles */
+.home-section {
+  min-height: calc(100vh - 80px); /* Account for header height */
+  display: flex;
+  align-items: center;
+  padding: 2rem 0 6rem; /* Add more bottom padding */
+  background: linear-gradient(135deg, #0f0c29, #1a1a2e, #24243e);
+  color: #fff;
+  position: relative;
+  overflow: visible;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Other sections */
+#about, #projects {
+  padding: 6rem 0;
+  background-color: #fff;
+}
+
+/* Container styles */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
 @media (max-width: 992px) {
-  .section {
-    padding: 80px 0;
+  .container {
+    max-width: 100%;
+    padding: 0 1.5rem;
+  }
+  
+  #about, #projects {
+    padding: 4rem 0;
   }
 }
 
 @media (max-width: 768px) {
-  .section {
-    padding: 60px 0;
+  .home-section {
+    min-height: auto;
+    padding: 6rem 0 4rem;
+  }
+  
+  #about, #projects {
+    padding: 3rem 0;
   }
 }
 
 @media (max-width: 576px) {
-  .section {
-    padding: 50px 0;
+  .container {
+    padding: 0 1rem;
+  }
+  
+  #about, #projects {
+    padding: 2.5rem 0;
   }
 }

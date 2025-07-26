@@ -4,7 +4,11 @@
   color: #fff;
   padding: 80px 0 0;
   position: relative;
-  overflow: hidden;
+  width: 100%;
+  z-index: 2;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .footer::before {
@@ -120,12 +124,12 @@
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 20px 0;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 25px 0;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  margin-top: 60px;
+  position: relative;
+  z-index: 2;
 }
 
 .footer-bottom p {

@@ -1,14 +1,17 @@
 /* Home Section */
 .home {
-  min-height: 100vh;
+  width: 100%;
+  min-height: calc(100vh - 80px); /* Account for header */
   display: flex;
   align-items: center;
-  padding: 100px 0;
+  padding: 4rem 0;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background: linear-gradient(135deg, #0f0c29, #1a1a2e, #24243e);
-  color: var(--text);
-  isolation: isolate;
+  color: #fff;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 1;
 }
 
 .home::before {
@@ -33,7 +36,13 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 2rem;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  overflow: visible;
 }
 
 .home-grid {
@@ -41,6 +50,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
+  width: 100%;
+  margin: 2rem 0;
 }
 
 .home-content {

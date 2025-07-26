@@ -7,16 +7,20 @@ import './HomePage.css';
 const HomePage = () => {
   return (
     <div className="home-page">
-      <section className="section home-section">
+      <section id="home" className="section home-section">
         <Home />
       </section>
       
       <section id="about" className="section">
-        <About />
+        <div className="container">
+          <About />
+        </div>
       </section>
       
       <section id="projects" className="section">
-        <Projects />
+        <div className="container">
+          <Projects />
+        </div>
       </section>
     </div>
   );

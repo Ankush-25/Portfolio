@@ -6,10 +6,9 @@ import './Home.css';
 const Home = () => {
   const [professionIndex, setProfessionIndex] = useState(0);
   const professions = [
-    "Frontend Developer",
-    "UI/UX Designer",
-    "React Specialist",
-    "Web Enthusiast"
+    "Fullstack Developer",
+    "Machine Learning Enthusiast",
+    "Mern Stack Developer"
   ];
 
   useEffect(() => {
@@ -61,7 +60,7 @@ const Home = () => {
             variants={containerVariants}
           >
             <motion.h1 variants={itemVariants} className="home-title">
-              Hi, I'm <span className="highlight">Your Name</span>
+              Hi, I'm <span className="highlight">Ankit Bhandari</span>
             </motion.h1>
             
             <motion.div className="text-animate" variants={itemVariants}>

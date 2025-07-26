@@ -22,12 +22,13 @@
 }
 
 /* Base Styles */
-html, body, #root {
+html {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
+  overflow-y: scroll;
 }
 
 body {
@@ -38,13 +39,21 @@ body {
   background-color: var(--background);
   color: var(--text);
   line-height: 1.6;
-  overflow-x: hidden;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: visible;
 }
 
 /* Typography */

@@ -78,10 +78,12 @@ const Header = () => {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+    document.body.style.overflow = !menuOpen ? 'hidden' : '';
   };
 
   const closeMenu = () => {
     setMenuOpen(false);
+    document.body.style.overflow = '';
   };
 
   // Check if a nav link is active
@@ -116,8 +118,8 @@ const Header = () => {
           transition={{ duration: 0.5 }}
         >
           <Link to="/#home" onClick={closeMenu}>
-            <span>Portfolio</span>
-            <div className="logo-highlight"></div>
+          <span>{"<Devfolio />"}</span>
+          <div className="logo-highlight"></div>
           </Link>
         </motion.div>
         
@@ -137,33 +139,15 @@ const Header = () => {
           <span className="menu-btn__line bottom"></span>
         </motion.button>
         
-        <motion.nav 
+        <nav 
           id="main-navigation"
           ref={navRef}
           className={`nav ${menuOpen ? 'active' : ''}`}
           aria-label="Main navigation"
-          initial={false}
-          animate={menuOpen ? "open" : "closed"}
         >
           <ul className="nav-list">
-            {navLinks.map((link, index) => (
-              <motion.li 
-                key={link.id} 
-                className="nav-item"
-                variants={{
-                  open: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { 
-                      type: "spring", 
-                      stiffness: 300, 
-                      damping: 24,
-                      delay: index * 0.1
-                    }
-                  },
-                  closed: { opacity: 0, y: 20 }
-                }}
-              >
+            {navLinks.map((link) => (
+              <li key={link.id} className="nav-item">
                 <Link 
                   to={`/#${link.id}`}
                   className={`nav-link ${isActive(link.id) ? 'active' : ''}`}
@@ -173,71 +157,12 @@ const Header = () => {
                   {link.label}
                   <span className="nav-link-indicator"></span>
                 </Link>
-              </motion.li>
+              </li>
             ))}
-            
-            {/* Theme toggle */}
-            <motion.li 
-              className="nav-theme-toggle"
-              variants={{
-                open: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { 
-                    type: "spring", 
-                    stiffness: 300, 
-                    damping: 24,
-                    delay: navLinks.length * 0.1
-                  }
-                },
-                closed: { opacity: 0, y: 20 }
-              }}
-            >
-              <button 
-                className="theme-toggle"
-                onClick={() => setDarkMode(!darkMode)}
-                aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-              >
-                {darkMode ? <FaSun /> : <FaMoon />}
-              </button>
-            </motion.li>
-            
-            {/* Mobile Social Icons */}
-            <motion.li 
-              className="nav-social-links"
-              variants={{
-                open: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { 
-                    type: "spring", 
-                    stiffness: 300, 
-                    damping: 24,
-                    delay: (navLinks.length + 1) * 0.1
-                  }
-                },
-                closed: { opacity: 0, y: 20 }
-              }}
-            >
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  aria-label={social.label}
-                  whileHover={{ y: -5, scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
-            </motion.li>
           </ul>
-        </motion.nav>
+        </nav>
         
-        {/* Desktop Social Icons and Theme Toggle */}
+        {/* Social Icons and Theme Toggle - Combined into one section */}
         <div className="desktop-actions">
           <div className="desktop-social-links">
             {socialLinks.map((social, index) => (
