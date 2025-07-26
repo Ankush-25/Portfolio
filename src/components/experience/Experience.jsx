@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaBriefcase, FaCalendarAlt, FaRocket, FaChartLine, FaLightbulb } from 'react-icons/fa';
+import { FaBriefcase, FaCalendarAlt, FaRocket, FaChartLine } from 'react-icons/fa';
+import './Experience.css';
 
 const experiences = [
   {
@@ -33,7 +34,6 @@ const experiences = [
 ];
 
 const Experience = () => {
-  const containerRef = useRef(null);
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -97,82 +97,65 @@ const Experience = () => {
       </div>
       
       <div className="container">
-        <motion.h2 
-          className="section-title"
-          initial={{ opacity: 0, y: -30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
         >
-          <span className="section-number">03.</span> Work Experience
-        </motion.h2>
-        
-        <motion.p 
-          className="section-subtitle"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          My professional journey and accomplishments
-        </motion.p>
+          <h2 className="section-title">
+            <span className="section-number">02.</span> Work Experience
+          </h2>
+          <p className="section-subtitle">
+            My professional journey and the companies I've worked with
+          </p>
+        </motion.div>
 
-        <motion.div 
-          className="experience-timeline"
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-          ref={containerRef}
-        >
+        <div className="experience-timeline">
           <div className="timeline-line"></div>
           
           {experiences.map((exp, index) => (
-            <motion.div 
-              key={index} 
+            <motion.div
+              key={index}
               className="experience-item"
-              variants={itemVariants}
-              whileHover={{ 
-                y: -10,
-                boxShadow: `0 20px 40px -10px rgba(0, 0, 0, 0.4)`
-              }}
-              transition={{ type: "spring", stiffness: 300 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <div className="experience-header">
-                <motion.div 
-                  className="experience-icon"
-                  style={{ backgroundColor: `${exp.color}20`, borderColor: exp.color }}
-                  variants={iconVariants}
-                >
+                <div className="experience-icon" style={{ backgroundColor: `${exp.color}20`, color: exp.color }}>
                   {exp.icon}
-                </motion.div>
-                <div className="experience-title">
-                  <h3>{exp.position}</h3>
-                  <div className="company-period">
-                    <span className="company">{exp.company}</span>
-                    <span className="period">
-                      <FaCalendarAlt className="calendar-icon" /> {exp.period}
-                    </span>
+                </div>
+                <div className="experience-company">
+                  <h3>{exp.company}</h3>
+                  <div className="experience-position">
+                    <FaBriefcase className="icon" />
+                    <span>{exp.position}</span>
+                  </div>
+                  <div className="experience-period">
+                    <FaCalendarAlt className="icon" />
+                    <span>{exp.period}</span>
                   </div>
                 </div>
               </div>
               
-              <ul className="achievement-list">
+              <ul className="experience-achievements">
                 {exp.achievements.map((achievement, i) => (
                   <motion.li 
-                    key={i}
+                    key={i} 
                     className="achievement-item"
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 + (i * 0.1), duration: 0.4 }}
-                    whileHover={{ x: 10 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.3 + (i * 0.1) }}
                   >
                     <span className="achievement-bullet" style={{ backgroundColor: exp.color }}></span>
-                    <span className="achievement-text">{achievement}</span>
+                    <span>{achievement}</span>
                   </motion.li>
                 ))}
               </ul>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

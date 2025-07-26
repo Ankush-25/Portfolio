@@ -21,21 +21,40 @@ const Skills = () => {
     
     const ctx = canvas.getContext('2d');
     let particles = [];
-    const particleCount = Math.floor(window.innerWidth / 20); // Adjust based on screen size
+    const particleCount = Math.min(Math.floor(window.innerWidth / 25), 80); // Limit max particles
+    
+    // Get computed styles for theme colors
+    const getThemeColor = (property) => {
+      return getComputedStyle(document.documentElement).getPropertyValue(property).trim();
+    };
+    
+    const primaryColor = getThemeColor('--primary');
     
     const initParticles = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      
+      // Set display size (css pixels)
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+      
+      // Set actual size in memory (scaled for retina displays)
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      
+      // Scale the context to ensure correct drawing operations
+      ctx.scale(dpr, dpr);
+      
       particles = [];
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
       
       for (let i = 0; i < particleCount; i++) {
         particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          radius: Math.random() * 2 + 0.5, // Smaller particles
-          speedX: (Math.random() - 0.5) * 0.3, // Slower movement
-          speedY: (Math.random() - 0.5) * 0.3,
-          color: `rgba(0, 238, 255, ${Math.random() * 0.2 + 0.05})` // More transparent
+          x: Math.random() * rect.width,
+          y: Math.random() * rect.height,
+          radius: Math.random() * 1.5 + 0.5, // Smaller particles
+          speedX: (Math.random() - 0.5) * 0.2, // Slower movement
+          speedY: (Math.random() - 0.5) * 0.2,
+          color: `rgba(${primaryColor}, ${Math.random() * 0.15 + 0.05})` // Use theme color with low opacity
         });
       }
     };
@@ -43,8 +62,8 @@ const Skills = () => {
     const drawParticles = () => {
       if (!ctx) return;
       
-      // Clear with a slight fade effect
-      ctx.fillStyle = 'rgba(12, 11, 29, 0.1)';
+      // Clear with a slight fade effect using theme background color
+      ctx.fillStyle = 'rgba(18, 18, 31, 0.85)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       particles.forEach(particle => {

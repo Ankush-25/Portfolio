@@ -1,25 +1,12 @@
 /* Skills Section */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
 
-:root {
-  --primary: #00eeff;
-  --primary-rgb: 0, 238, 255;
-  --secondary: #6c63ff;
-  --bg-dark: #0c0b1d;
-  --bg-darker: #16162e;
-  --bg-darkest: #1d1c3a;
-  --text-light: #e6f1ff;
-  --text-muted: #a0aec0;
-  --border-radius: 20px;
-  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
 .skills-section {
   width: 100%;
   position: relative;
-  background: linear-gradient(135deg, var(--bg-dark), var(--bg-darker), var(--bg-darkest));
-  color: var(--text-light);
-  padding: 8rem 0;
+  background: var(--bg-primary);
+  color: var(--text);
+  padding: var(--section-padding);
   margin: 0;
   box-sizing: border-box;
   z-index: 1;
@@ -36,7 +23,7 @@
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  opacity: 0.4;
+  opacity: 0.15;
   pointer-events: none;
 }
 
@@ -64,7 +51,7 @@
   font-size: 2.8rem;
   margin-bottom: 1rem;
   position: relative;
-  color: #e6f1ff;
+  color: var(--text);
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: none;
@@ -80,7 +67,7 @@
 }
 
 .section-subtitle {
-  color: #a0aec0;
+  color: var(--text-secondary);
   font-size: 1.2rem;
   max-width: 600px;
   margin: 0 auto;
