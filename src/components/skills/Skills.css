@@ -1,24 +1,43 @@
 /* Skills Section */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+  --primary: #00eeff;
+  --primary-rgb: 0, 238, 255;
+  --secondary: #6c63ff;
+  --bg-dark: #0c0b1d;
+  --bg-darker: #16162e;
+  --bg-darkest: #1d1c3a;
+  --text-light: #e6f1ff;
+  --text-muted: #a0aec0;
+  --border-radius: 20px;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
 .skills-section {
   width: 100%;
   position: relative;
-  background: linear-gradient(135deg, #0c0b1d, #16162e, #1d1c3a);
-  color: #fff;
+  background: linear-gradient(135deg, var(--bg-dark), var(--bg-darker), var(--bg-darkest));
+  color: var(--text-light);
   padding: 8rem 0;
   margin: 0;
   box-sizing: border-box;
   z-index: 1;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .particles-canvas {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: -1;
-  opacity: 0.3;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .container {
@@ -28,6 +47,12 @@
   padding: 0 2rem;
   position: relative;
   z-index: 2;
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .section-header {
@@ -64,26 +89,29 @@
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 1rem 0;
 }
 
 .skill-category {
-  background: rgba(30, 30, 60, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 2.5rem;
-  transition: all 0.4s ease;
-  border: 1px solid rgba(0, 238, 255, 0.15);
+  background: rgba(30, 30, 60, 0.5);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  transition: var(--transition);
+  border: 1px solid rgba(var(--primary-rgb), 0.1);
   box-shadow: 
-    0 10px 30px -10px rgba(0, 0, 0, 0.3),
-    inset 0 0 15px rgba(108, 99, 255, 0.1);
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    inset 0 0 10px rgba(var(--primary-rgb), 0.1);
   position: relative;
   overflow: hidden;
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
 }
 
 .skill-category:hover {
@@ -250,41 +278,46 @@
     margin-bottom: 0.5rem;
   }
   
-  .skill-category {
-    padding: 2rem;
-  }
-}
-
-@media (max-width: 768px) {
   .skills-section {
     padding: 6rem 0;
   }
   
   .section-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.1rem;
+    max-width: 90%;
+  }
+  
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
   }
   
   .skill-category {
     padding: 1.8rem;
   }
-  
-  .skill-category-title {
-    font-size: 1.3rem;
-  }
-  
-  .skill-item {
-    padding: 1.2rem 0.8rem;
-  }
-  
-  .skill-logo {
-    width: 50px;
-    height: 50px;
-  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .skills-section {
+    padding: 5rem 0;
+  }
+  
   .section-title {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
   }
   
   .skill-category {

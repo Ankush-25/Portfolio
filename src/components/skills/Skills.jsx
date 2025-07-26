@@ -1,32 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import './Skills.css';
+
+// Add font imports in your index.html or CSS file
+// <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
 const Skills = () => {
+  const canvasRef = useRef(null);
+  const animationFrameId = useRef(null);
+  const [isClient, setIsClient] = useState(false);
+
+  // Initialize particles only on client side
   useEffect(() => {
-    // Initialize the floating particles effect
-    const canvas = document.getElementById('particles');
+    setIsClient(true);
+    
+    if (!isClient) return;
+    
+    const canvas = canvasRef.current;
     if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    let particles = [];
+    const particleCount = Math.floor(window.innerWidth / 20); // Adjust based on screen size
     
-    const particles = [];
-    const particleCount = 80;
-    
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 3 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
-        color: `rgba(0, 238, 255, ${Math.random() * 0.4 + 0.1})`
-      });
-    }
+    const initParticles = () => {
+      particles = [];
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 2 + 0.5, // Smaller particles
+          speedX: (Math.random() - 0.5) * 0.3, // Slower movement
+          speedY: (Math.random() - 0.5) * 0.3,
+          color: `rgba(0, 238, 255, ${Math.random() * 0.2 + 0.05})` // More transparent
+        });
+      }
+    };
     
     const drawParticles = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (!ctx) return;
+      
+      // Clear with a slight fade effect
+      ctx.fillStyle = 'rgba(12, 11, 29, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       particles.forEach(particle => {
         ctx.beginPath();
@@ -34,22 +53,41 @@ const Skills = () => {
         ctx.fillStyle = particle.color;
         ctx.fill();
         
+        // Update position
         particle.x += particle.speedX;
         particle.y += particle.speedY;
         
+        // Bounce off edges
         if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
         if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
       });
       
-      requestAnimationFrame(drawParticles);
+      animationFrameId.current = requestAnimationFrame(drawParticles);
     };
     
-    drawParticles();
+    // Initialize and start animation
+    initParticles();
+    animationFrameId.current = requestAnimationFrame(drawParticles);
     
+    // Handle window resize
+    const handleResize = () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      initParticles();
+      animationFrameId.current = requestAnimationFrame(drawParticles);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
     return () => {
-      cancelAnimationFrame(drawParticles);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [isClient]);
 
   // Skill categories with official logos
   const skillCategories = [
@@ -88,7 +126,7 @@ const Skills = () => {
         { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
         { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
         { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-        { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
+        { name: "AWS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2xQcwKitRgXfqdi34DYlocPSEXD2G2zZipg&s" },
         { name: "VS Code", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" }
       ]
     },
@@ -98,14 +136,14 @@ const Skills = () => {
         { name: "RESTful APIs", logo: "https://cdn.worldvectorlogo.com/logos/postman.svg" },
         { name: "JWT Auth", logo: "https://jwt.io/img/icon.svg" },
         { name: "Agile/Scrum", logo: "https://cdn.worldvectorlogo.com/logos/scrum-1.svg" },
-        { name: "CI/CD", logo: "https://cdn.worldvectorlogo.com/logos/cicd-pipeline.svg" }
+        { name: "CI/CD", logo: "https://i0.wp.com/sysreseau.net/wp-content/uploads/2022/12/ci-cd.png?resize=1024%2C536&ssl=1" }
       ]
     }
   ];
 
   return (
     <section id="skills" className="skills-section">
-      <canvas id="particles" className="particles-canvas"></canvas>
+      <canvas ref={canvasRef} className="particles-canvas"></canvas>
       
       <div className="container">
         <motion.div 
@@ -125,10 +163,20 @@ const Skills = () => {
             <motion.div 
               key={categoryIndex}
               className="skill-category"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-              whileHover={{ y: -10 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.6, 
+                delay: categoryIndex * 0.1,
+                type: "spring",
+                damping: 12,
+                stiffness: 100
+              }}
+              whileHover={{ 
+                y: -8,
+                boxShadow: "0 15px 40px -10px rgba(0, 0, 0, 0.4)"
+              }}
             >
               <h3 className="skill-category-title">{category.title}</h3>
               <div className="skill-items">
