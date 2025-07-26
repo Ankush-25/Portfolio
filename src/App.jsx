@@ -1,50 +1,59 @@
-import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Box, CircularProgress, Container } from '@mui/material';
-
-// Lazy load components for better performance
-const Header = lazy(() => import('./components/Header'));
-const Home = lazy(() => import('./components/Home'));
-const About = lazy(() => import('./components/About'));
-const Skills = lazy(() => import('./components/Skills'));
-const Projects = lazy(() => import('./components/Projects'));
-const Experience = lazy(() => import('./components/Experience'));
-const Education = lazy(() => import('./components/Education'));
-const Contact = lazy(() => import('./components/Contact'));
-
-// Loading component
-const Loading = () => (
-  <Box 
-    display="flex" 
-    justifyContent="center" 
-    alignItems="center" 
-    minHeight="80vh"
-  >
-    <CircularProgress />
-  </Box>
-);
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/layout/Layout';
+import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
+import './App.css';
 
 function App() {
+  // Smooth scroll for anchor links
+  useEffect(() => {
+    const handleSmoothScroll = (e) => {
+      // Check if the click is on an anchor link within the same page
+      if (e.target.matches('a[href^="#"]') && 
+          e.target.getAttribute('href') !== '#' &&
+          !e.target.getAttribute('href').startsWith('http')) {
+        e.preventDefault();
+        const targetId = e.target.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80, // Adjust for fixed header
+            behavior: 'smooth',
+          });
+          
+          // Update URL without page reload
+          window.history.pushState({}, '', targetId);
+        }
+      }
+    };
+
+    // Add event listener to the document
+    document.addEventListener('click', handleSmoothScroll);
+
+    // Clean up the event listener
+    return () => {
+      document.removeEventListener('click', handleSmoothScroll);
+    };
+  }, []);
+
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Header />
-      
-      <Container component="main" sx={{ flexGrow: 1, py: 4 }}>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </Suspense>
-      </Container>
-      
-      {/* Footer can be added here */}
-    </Box>
+    <Router>
+      <Routes>
+        <Route path="/" element={
+          <Layout>
+            <HomePage />
+          </Layout>
+        } />
+        {/* Add more routes here as needed */}
+        <Route path="*" element={
+          <Layout>
+            <NotFoundPage />
+          </Layout>
+        } />
+      </Routes>
+    </Router>
   );
 }
 
