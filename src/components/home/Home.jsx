@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import About from '../about/About';
 import Skills from '../skills/Skills';
 import Experience from '../experience/Experience';
 import Projects from '../projects/Projects';
@@ -56,6 +57,7 @@ const Home = () => {
 
   return (
     <div className="main-container">
+      {/* Hero Section */}
       <section id="home" className="home">
         <div className="container">
           <div className="home-grid">
@@ -80,72 +82,58 @@ const Home = () => {
                 Focused on creating intuitive user interfaces that drive engagement and deliver results.
               </motion.p>
               
-              <motion.div className="btn-box" variants={itemVariants}>
+              <motion.div className="cta-buttons" variants={itemVariants}>
                 <a href="#contact" className="btn btn-primary">
-                  Hire Me
+                  Get In Touch
                 </a>
-                <a href="#portfolio" className="btn btn-secondary">
-                  View Portfolio
+                <a href="#portfolio" className="btn btn-outline">
+                  View My Work
                 </a>
               </motion.div>
+              
+              <motion.div className="social-links" variants={itemVariants}>
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label={social.icon.replace('bxl-', '')}
+                  >
+                    <i className={`bx ${social.icon}`}></i>
+                  </a>
+                ))}
+              </motion.div>
             </motion.div>
-
+            
             <motion.div 
-              className="home-image"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5, type: 'spring' }}
+              className="hero-image"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <div className="image-wrapper">
+              <div className="image-container">
                 <div className="glow-effect"></div>
-                <div className="placeholder-image">
-                  <div className="placeholder-content">
-                    <i className='bx bx-code-alt'></i>
-                    <img src="./photo.jpg" alt="Your Photo" />
-                  </div>
+                <img 
+                  src="./photo.jpg" 
+                  alt="Ankit Bhandari" 
+                  className="profile-image"
+                />
+                <div className="tech-stack">
+                  <span>React</span>
+                  <span>Node.js</span>
+                  <span>Python</span>
+                  <span>MongoDB</span>
                 </div>
               </div>
             </motion.div>
           </div>
         </div>
-
-        <div className="home-sci">
-          {socialLinks.map((social, index) => (
-            <motion.a
-              key={index}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.icon.replace('bxl-', '')}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ 
-                delay: 0.8 + index * 0.1,
-                type: 'spring',
-                stiffness: 300
-              }}
-              whileHover={{ y: -5, scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="social-link"
-            >
-              <i className={`bx ${social.icon}`}></i>
-            </motion.a>
-          ))}
-        </div>
-
-        <motion.div 
-          className="scroll-indicator"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-        >
-          <div className="mouse">
-            <div className="wheel"></div>
-          </div>
-          <span>Scroll Down</span>
-        </motion.div>
       </section>
       
+      {/* Main Content Sections */}
+      <About />
       <Skills />
       <Experience />
       <Projects />

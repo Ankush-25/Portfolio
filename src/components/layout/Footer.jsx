@@ -1,57 +1,121 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const socialLinks = [
+    { icon: <FaGithub />, url: 'https://github.com/yourusername', label: 'GitHub' },
+    { icon: <FaLinkedin />, url: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
+    { icon: <FaTwitter />, url: 'https://twitter.com/yourusername', label: 'Twitter' },
+    { icon: <FaEnvelope />, url: 'mailto:your.email@example.com', label: 'Email' }
+  ];
+
+  const footerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
     <footer className="footer">
+      <div className="footer-shapes">
+        <div className="shape shape-1"></div>
+        <div className="shape shape-2"></div>
+      </div>
+      
       <div className="container">
-        <div className="footer-content">
-          <div className="footer-logo">
-            <a href="#" className="logo">Portfolio</a>
-            <p>Creating amazing digital experiences</p>
-          </div>
-          
-          <div className="footer-links">
-            <h3>Quick Links</h3>
+        <motion.div 
+          className="footer-content"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={footerVariants}
+        >
+          <motion.div className="footer-about" variants={itemVariants}>
+            <h3 className="footer-logo">Ankush Bhandari</h3>
+            <p className="footer-about-text">
+              A passionate Full Stack Developer dedicated to creating exceptional digital experiences 
+              with clean, efficient code and innovative solutions.
+            </p>
+            <div className="footer-social">
+              {socialLinks.map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="social-link"
+                  whileHover={{ y: -3, scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div className="footer-links" variants={itemVariants}>
+            <h3 className="footer-heading">Quick Links</h3>
             <ul>
               <li><a href="#home">Home</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#skills">Skills</a></li>
               <li><a href="#projects">Projects</a></li>
+              <li><a href="#experience">Experience</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
-          </div>
-          
-          <div className="footer-contact">
-            <h3>Get In Touch</h3>
+          </motion.div>
+
+          <motion.div className="footer-contact" variants={itemVariants}>
+            <h3 className="footer-heading">Get In Touch</h3>
             <ul>
-              <li><i className='bx bx-envelope'></i> email@example.com</li>
-              <li><i className='bx bx-phone'></i> +1 234 567 890</li>
-              <li><i className='bx bx-map'></i> City, Country</li>
+              <li>
+                <FaEnvelope className="contact-icon" />
+                <span>your.email@example.com</span>
+              </li>
+              <li>
+                <FaPhone className="contact-icon" />
+                <span>+1 234 567 890</span>
+              </li>
+              <li>
+                <FaMapMarkerAlt className="contact-icon" />
+                <span>Dehradun, India</span>
+              </li>
             </ul>
-          </div>
-          
-          <div className="footer-social">
-            <h3>Follow Me</h3>
-            <div className="social-links">
-              <a href="#" aria-label="GitHub"><i className='bx bxl-github'></i></a>
-              <a href="#" aria-label="LinkedIn"><i className='bx bxl-linkedin'></i></a>
-              <a href="#" aria-label="Twitter"><i className='bx bxl-twitter'></i></a>
-              <a href="#" aria-label="Instagram"><i className='bx bxl-instagram'></i></a>
-            </div>
-          </div>
-        </div>
-        
-        <div className="footer-bottom">
-          <p>&copy; {currentYear} Portfolio. All Rights Reserved.</p>
+          </motion.div>
+        </motion.div>
+
+        <motion.div 
+          className="footer-bottom"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
+          <p className="copyright">
+            &copy; {currentYear} Ankush Bhandari. All rights reserved.
+          </p>
           <div className="footer-legal">
-            <a href="#">Privacy Policy</a>
-            <span>|</span>
-            <a href="#">Terms of Service</a>
+            <a href="#privacy">Privacy Policy</a>
+            <span className="divider">|</span>
+            <a href="#terms">Terms of Service</a>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
