@@ -126,7 +126,7 @@ const Skills = () => {
         { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
         { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
         { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-        { name: "AWS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2xQcwKitRgXfqdi34DYlocPSEXD2G2zZipg&s" },
+        { name: "AWS", logo: "/aws_icon_146074.png" },
         { name: "VS Code", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" }
       ]
     },
@@ -136,7 +136,7 @@ const Skills = () => {
         { name: "RESTful APIs", logo: "https://cdn.worldvectorlogo.com/logos/postman.svg" },
         { name: "JWT Auth", logo: "https://jwt.io/img/icon.svg" },
         { name: "Agile/Scrum", logo: "https://cdn.worldvectorlogo.com/logos/scrum-1.svg" },
-        { name: "CI/CD", logo: "https://i0.wp.com/sysreseau.net/wp-content/uploads/2022/12/ci-cd.png?resize=1024%2C536&ssl=1" }
+        { name: "CI/CD", logo: "/pngwing.com.png" }
       ]
     }
   ];

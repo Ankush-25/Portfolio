@@ -5,30 +5,59 @@
   box-sizing: border-box;
 }
 
-/* Root Variables */
+/* Root Variables - Theme */
 :root {
+  /* Colors */
   --primary: #6c63ff;
+  --primary-rgb: 108, 99, 255;
   --primary-hover: #5a51ff;
   --secondary: #61dafb;
+  --accent: #ff6584;
+  
+  /* Text */
   --text: #f5f5f5;
   --text-secondary: #b0b0b0;
-  --background: #0f0c29;
-  --background-secondary: #1a1a2e;
+  --text-muted: #8a8a9b;
+  
+  /* Backgrounds */
+  --bg-primary: #0f0c29;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #24243e;
+  --bg-card: rgba(26, 26, 46, 0.8);
+  
+  /* Borders */
+  --border-color: rgba(255, 255, 255, 0.1);
   --border-radius: 8px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --border-radius-lg: 12px;
+  
+  /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+  --glow: 0 0 15px rgba(108, 99, 255, 0.3);
+  
+  /* Transitions */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Layout */
+  --header-height: 80px;
+  --container-width: 1280px;
+  --section-padding: 6rem 0;
+  --section-padding-sm: 4rem 0;
 }
 
 /* Base Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 html {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  overflow-y: scroll;
+  overflow-y: auto;
+  scroll-padding-top: calc(var(--header-height) + 2rem);
 }
 
 body {
@@ -36,15 +65,127 @@ body {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background);
+  background-color: var(--bg-primary);
   color: var(--text);
   line-height: 1.6;
   min-height: 100%;
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(var(--primary-rgb), 0.1) 0%, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(97, 218, 251, 0.1) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Global Container */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Global Sections */
+section {
+  position: relative;
+  padding: var(--section-padding);
+  overflow: hidden;
+  background-color: var(--bg-primary);
+}
+
+section:nth-child(even) {
+  background-color: var(--bg-secondary);
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+}
+
+section:first-child::before {
+  display: none;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+  margin: 0 0 1.5rem;
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 4px 14px rgba(108, 99, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: rgba(108, 99, 255, 0.1);
+  transform: translateY(-2px);
 }
 
 #root {
