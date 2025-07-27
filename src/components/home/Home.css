@@ -206,7 +206,7 @@
   border-color: var(--primary);
   color: var(--primary);
   width: 25%!important;
-  margin-top: 21px;
+  margin-top: 16px;
 }
 
 .btn-secondary:hover {
