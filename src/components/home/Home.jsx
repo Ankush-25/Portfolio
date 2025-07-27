@@ -2,8 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
 import {
-  FaGithub, FaLinkedinIn, FaTwitter, FaDribbble,
+  FaGithub, FaLinkedinIn,
 } from 'react-icons/fa';
+import {
+  FaXTwitter, FaCode,
+} from 'react-icons/fa6';
 import './Home.css';
 
 const professions = [
@@ -13,10 +16,10 @@ const professions = [
 ];
 
 const socialLinks = [
-  { icon: <FaGithub />, url: 'https://github.com/', label: 'GitHub', color: '#6e5494' },
-  { icon: <FaLinkedinIn />, url: 'https://linkedin.com/', label: 'LinkedIn', color: '#0077b5' },
-  { icon: <FaTwitter />, url: 'https://twitter.com/', label: 'Twitter', color: '#1da1f2' },
-  { icon: <FaDribbble />, url: 'https://dribbble.com/', label: 'Dribbble', color: '#ea4c89' },
+  { icon: <FaGithub />, url: 'https://github.com/Ankush-25', label: 'GitHub', color: '#6e5494' },
+  { icon: <FaLinkedinIn />, url: 'https://www.linkedin.com/in/ankit-bhandari25/', label: 'LinkedIn', color: '#0077b5' },
+  { icon: <FaXTwitter />, url: 'https://x.com/bhandariji1298/', label: 'X', color: '#1da1f2' },
+  { icon: <FaCode />, url: 'https://leetcode.com/u/Ankush-25/', label: 'LeetCode', color: '#ffa116' },
 ];
 
 const containerVariants = {
@@ -148,18 +151,6 @@ const Home = () => {
                   height="400"
                   onError={(e) => e.target.parentElement.classList.add('placeholder-fallback')}
                 />
-                <div className="tech-stack">
-                  {['React', 'Node.js', 'Python', 'MongoDB'].map((tech, i) => (
-                    <motion.span
-                      key={tech}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 + (i * 0.1), type: 'spring', stiffness: 200 }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
               </div>
             </div>
           </motion.div>

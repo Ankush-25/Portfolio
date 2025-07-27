@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -39,21 +40,18 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={
+    <ThemeProvider>
+      <Router>
+        <div className="app">
           <Layout>
-            <HomePage />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
           </Layout>
-        } />
-        {/* Add more routes here as needed */}
-        <Route path="*" element={
-          <Layout>
-            <NotFoundPage />
-          </Layout>
-        } />
-      </Routes>
-    </Router>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

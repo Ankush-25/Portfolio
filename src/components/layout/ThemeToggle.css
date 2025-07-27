@@ -1,0 +1,53 @@
+/* Debug styles - can be removed later */
+.theme-toggle {
+  /* Visual feedback for debugging */
+  position: relative;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  margin-left: 1rem;
+  outline: 2px solid red; /* Debug */
+}
+
+.theme-toggle:hover {
+  background-color: var(--hover-bg);
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.theme-icon {
+  font-size: 1.25rem;
+  transition: transform 0.3s ease;
+  color: var(--text-color);
+}
+
+/* Animation for theme toggle */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.theme-toggle:hover .theme-icon {
+  animation: spin 1s ease-in-out;
+}

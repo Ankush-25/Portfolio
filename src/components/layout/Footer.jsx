@@ -1,18 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6'
 import './Footer.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: <FaGithub />, url: 'https://github.com/yourusername', label: 'GitHub' },
-    { icon: <FaLinkedin />, url: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
-    { icon: <FaTwitter />, url: 'https://twitter.com/yourusername', label: 'Twitter' },
+    { icon: <FaGithub />, url: 'https://github.com/Ankush-25', label: 'GitHub' },
+    { icon: <FaLinkedin />, url: 'https://linkedin.com/in/', label: 'LinkedIn' },
+    { icon: <FaXTwitter />, url: 'https://x.com/bhandariji1298/', label: 'Twitter' },
     { icon: <FaEnvelope />, url: 'mailto:bhandariji1398@gmail.com', label: 'Email' }
   ];
-
   const footerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {

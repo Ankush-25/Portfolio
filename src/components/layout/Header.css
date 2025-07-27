@@ -1,29 +1,7 @@
 /* Header Styles */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-:root {
-  --primary: #0ef; /* Cyan accent color to match hero section */
-  --primary-dark: #0cc0df;
-  --text-light: #ffffff; /* Pure white for better contrast */
-  --text-secondary: #e0e0e0;
-  --bg-dark: rgba(15, 12, 41, 0.95); /* Match home section gradient */
-  --bg-light: rgba(26, 26, 46, 0.98);
-  --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --hero-gradient: linear-gradient(135deg, #0f0c29, #1a1a2e, #24243e);
-  --header-bg: rgba(15, 12, 41, 0.9); /* Semi-transparent dark blue */
-  --header-scrolled: rgba(15, 12, 41, 0.98); /* Less transparent when scrolled */
-}
-
-.dark {
-  --bg-dark: rgba(15, 23, 42, 0.95);
-  --text-color: var(--text-light);
-  --bg-color: var(--bg-dark);
-}
-
-.light {
-  --text-color: #121212;
-  --bg-color: var(--bg-light);
-}
+/* Using global theme variables */
 
 .header {
   position: fixed;
@@ -33,18 +11,18 @@
   z-index: 1000;
   padding: 18px 0;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  background: rgba(15, 12, 41, 0.5);
+  background: var(--header-bg);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.3);
 }
 
 .header.scrolled {
   padding: 12px 0;
-  background: rgba(10, 8, 30, 0.85);
-  border-bottom: 1px solid rgba(0, 238, 255, 0.1);
-  box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.8);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
 }
 
 .dark .header.scrolled {
@@ -156,20 +134,6 @@
   padding: 0;
 }
 
-.menu-btn span {
-  display: block;
-  position: absolute;
-  height: 3px;
-  width: 100%;
-  background: #fff;
-  border-radius: 3px;
-  opacity: 1;
-  left: 0;
-  transform: rotate(0deg);
-  transition: var(--transition);
-  box-shadow: 0 0 10px rgba(0, 238, 255, 0.5);
-}
-
 .menu-btn span:nth-child(1) {
   top: 0;
 }
@@ -237,7 +201,7 @@
 }
 
 .nav-list li a {
-  color: var(--text-light);
+  color: var(--text-color);
   font-weight: 500;
   font-size: 1.05rem;
   padding: 8px 18px;
@@ -290,7 +254,9 @@
 
 .nav-list li a:hover,
 .nav-list li a.active {
-  color: #fff;
+  color: var(--primary);
+  background: var(--hover-bg);
+  border-radius: 4px;
   text-shadow: 0 0 15px var(--primary);
   opacity: 1;
 }

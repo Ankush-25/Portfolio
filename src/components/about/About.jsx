@@ -39,11 +39,7 @@ const About = () => {
       title: 'Backend Development',
       description: 'Designing and implementing robust server-side logic and APIs.'
     },
-    {
-      icon: <FaMobile className="expertise-icon" />,
-      title: 'Mobile Development',
-      description: 'Creating cross-platform mobile applications with native performance.'
-    },
+    
     {
       icon: <FaBrain className="expertise-icon" />,
       title: 'Problem Solving',

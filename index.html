@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="light">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -10,8 +10,46 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>My Portfolio</title>
+    <style>
+      /* Debug styles - can be removed in production */
+      body::before {
+        content: 'Theme: ' attr(data-theme);
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        z-index: 9999;
+        pointer-events: none;
+      }
+    </style>
+  </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Debug script to show current theme
+      document.addEventListener('DOMContentLoaded', () => {
+        const root = document.documentElement;
+        const updateThemeDebug = () => {
+          document.body.setAttribute('data-theme', root.classList.contains('dark') ? 'dark' : 'light');
+        };
+        
+        // Watch for theme changes
+        const observer = new MutationObserver(updateThemeDebug);
+        observer.observe(root, { 
+          attributes: true,
+          attributeFilter: ['class']
+        });
+        
+        // Initial update
+        updateThemeDebug();
+        
+        console.log('Theme debug script loaded');
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

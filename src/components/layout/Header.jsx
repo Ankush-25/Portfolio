@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaTwitter, FaSun, FaMoon } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import ThemeToggle from './ThemeToggle';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Header.css';
 
@@ -8,18 +9,11 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [darkMode, setDarkMode] = useState(false);
+
   const location = useLocation();
   const navRef = useRef(null);
 
-  // Toggle dark mode
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
+
 
   // Handle scroll effect for header and active section
   useEffect(() => {
@@ -101,12 +95,6 @@ const Header = () => {
     { id: 'contact', label: 'Contact' },
   ];
 
-  // Social media links
-  const socialLinks = [
-    { icon: <FaGithub />, url: 'https://github.com/yourusername', label: 'GitHub' },
-    { icon: <FaLinkedin />, url: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
-    { icon: <FaTwitter />, url: 'https://twitter.com/yourusername', label: 'Twitter' },
-  ];
 
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
@@ -162,41 +150,7 @@ const Header = () => {
           </ul>
         </nav>
 
-        {/* Social Icons and Theme Toggle - Combined into one section */}
-        <div className="desktop-actions">
-          <div className="desktop-social-links">
-            {socialLinks.map((social, index) => (
-              <motion.a
-                key={index}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                aria-label={social.label}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {social.icon}
-              </motion.a>
-            ))}
-          </div>
-
-          <motion.button
-            className="theme-toggle"
-            onClick={() => setDarkMode(!darkMode)}
-            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: 0.5 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {darkMode ? <FaSun /> : <FaMoon />}
-          </motion.button>
-        </div>
+        <ThemeToggle />
       </div>
     </header>
   );

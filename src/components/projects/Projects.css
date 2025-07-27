@@ -4,7 +4,7 @@
   z-index: 1;
   width: 100%;
   padding: 2rem 0;
-  background: linear-gradient(135deg, #0f0c29, #1a1a2e, #24243e);
+  background: transparent;
   color: #fff;
   margin: 0;
   box-sizing: border-box;
@@ -63,17 +63,18 @@
 }
 
 .project-card {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 2rem;
+  background: rgba(15, 12, 41, 0.4);
+  border-radius: 16px;
+  padding: 2.5rem;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.2);
   transition: all 0.3s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
 }
 
 .project-card::before {
@@ -91,8 +92,9 @@
 
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(14, 239, 255, 0.1);
-  border-color: rgba(14, 239, 255, 0.3);
+  box-shadow: 0 15px 45px -10px rgba(0, 0, 0, 0.4);
+  border-color: rgba(108, 99, 255, 0.4);
+  background: rgba(15, 12, 41, 0.6);
 }
 
 .project-card:hover::before {
@@ -108,12 +110,14 @@
 .project-icon-wrapper {
   width: 60px;
   height: 60px;
-  border-radius: 12px;
-  background: rgba(14, 239, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
 }
 
 .project-icon {
@@ -188,19 +192,21 @@
 }
 
 .tech-tag {
-  background: rgba(14, 239, 255, 0.1);
-  color: #0ef;
+  background: rgba(108, 99, 255, 0.1);
+  color: #6c63ff;
   padding: 0.35rem 0.85rem;
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(108, 99, 255, 0.2);
 }
 
 .tech-tag:hover {
-  background: rgba(14, 239, 255, 0.2);
+  background: rgba(108, 99, 255, 0.2);
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(108, 99, 255, 0.1);
 }
 
 /* Responsive Design */
