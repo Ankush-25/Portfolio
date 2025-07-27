@@ -117,7 +117,7 @@ const Certifications = () => {
           viewport={{ once: true }}
           variants={itemVariants}
         >
-          <span className="section-number">06.</span> Certifications & Achievements
+          <span className="section-number"></span> Certifications & Achievements
         </motion.h2>
 
         <motion.div 

@@ -104,7 +104,7 @@ const Experience = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">
-            <span className="section-number">02.</span> Work Experience
+            <span className="section-number"></span> Work Experience
           </h2>
           <p className="section-subtitle">
             My professional journey and the companies I've worked with

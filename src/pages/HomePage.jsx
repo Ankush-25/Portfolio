@@ -7,6 +7,7 @@ import Experience from '../components/experience/Experience';
 import Education from '../components/education/Education';
 import Certifications from '../components/certifications/Certifications';
 import './HomePage.css';
+import Contact from '../components/sections/Contact';
 
 const HomePage = () => {
   return (
@@ -49,6 +50,11 @@ const HomePage = () => {
         <section id="certifications" className="section">
           <div className="container">
             <Certifications />
+          </div>
+        </section>
+        <section id="contact" className="section">
+          <div className="container">
+            <Contact />
           </div>
         </section>
       </Suspense>

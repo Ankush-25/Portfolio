@@ -69,7 +69,7 @@ const Education = () => {
           viewport={{ once: true }}
           variants={itemVariants}
         >
-          <span className="section-number">05.</span> Education
+          <span className="section-number"></span> Education
         </motion.h2>
 
         <motion.div 

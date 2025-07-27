@@ -167,7 +167,9 @@
   display: flex;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  flex-wrap: wrap;
+  align-items: center;
+  
+  justify-content: flex-start;
 }
 
 .btn {
@@ -190,6 +192,7 @@
 .btn-primary {
   background: var(--primary);
   color: white;
+  width: 25%!important;
   box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
 }
 
@@ -202,6 +205,8 @@
   background: transparent;
   border-color: var(--primary);
   color: var(--primary);
+  width: 25%!important;
+  margin-top: 21px;
 }
 
 .btn-secondary:hover {

@@ -81,7 +81,7 @@ const Projects = () => {
         viewport={{ once: true }}
         variants={itemVariants}
       >
-        <span className="section-number">04.</span> Featured Projects
+        <span className="section-number"></span> Featured Projects
       </motion.h2>
 
         <motion.div 
