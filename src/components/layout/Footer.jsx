@@ -10,7 +10,7 @@ const Footer = () => {
     { icon: <FaGithub />, url: 'https://github.com/yourusername', label: 'GitHub' },
     { icon: <FaLinkedin />, url: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
     { icon: <FaTwitter />, url: 'https://twitter.com/yourusername', label: 'Twitter' },
-    { icon: <FaEnvelope />, url: 'mailto:your.email@example.com', label: 'Email' }
+    { icon: <FaEnvelope />, url: 'mailto:bhandariji1398@gmail.com', label: 'Email' }
   ];
 
   const footerVariants = {
@@ -46,7 +46,7 @@ const Footer = () => {
           variants={footerVariants}
         >
           <motion.div className="footer-about" variants={itemVariants}>
-            <h3 className="footer-logo">Ankush Bhandari</h3>
+            <h3 className="footer-logo">Ankit Bhandari</h3>
             <p className="footer-about-text">
               A passionate Full Stack Developer dedicated to creating exceptional digital experiences 
               with clean, efficient code and innovative solutions.
@@ -86,11 +86,11 @@ const Footer = () => {
             <ul>
               <li>
                 <FaEnvelope className="contact-icon" />
-                <span>your.email@example.com</span>
+                <span>bhandariji1398@gmail.com</span>
               </li>
               <li>
                 <FaPhone className="contact-icon" />
-                <span>+1 234 567 890</span>
+                <span>+91 6397098909</span>
               </li>
               <li>
                 <FaMapMarkerAlt className="contact-icon" />
@@ -108,7 +108,7 @@ const Footer = () => {
           transition={{ delay: 0.2 }}
         >
           <p className="copyright">
-            &copy; {currentYear} Ankush Bhandari. All rights reserved.
+            &copy; {currentYear} Ankit Bhandari. All rights reserved.
           </p>
           <div className="footer-legal">
             <a href="#privacy">Privacy Policy</a>

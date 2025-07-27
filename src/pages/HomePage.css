@@ -112,13 +112,12 @@
 /* Other sections */
 #about, #projects {
   padding: 6rem 0;
-  background-color: #fff;
 }
 
 /* Container styles */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 2rem;
 }

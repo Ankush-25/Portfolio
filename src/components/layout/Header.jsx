@@ -31,7 +31,7 @@ const Header = () => {
       }
 
       // Active section detection
-      const sections = ['home', 'about', 'projects', 'contact'];
+      const sections = ['Home', 'Experience', 'Skills', 'Projects', 'About', 'Contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -39,7 +39,7 @@ const Header = () => {
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
-          
+
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
             setActiveSection(section);
             break;
@@ -50,7 +50,7 @@ const Header = () => {
 
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrolled]);
 
@@ -70,7 +70,7 @@ const Header = () => {
     if (menuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
-    
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -88,8 +88,8 @@ const Header = () => {
 
   // Check if a nav link is active
   const isActive = (section) => {
-    return activeSection === section || 
-           (section === 'home' && location.pathname === '/' && !location.hash);
+    return activeSection === section ||
+      (section === 'home' && location.pathname === '/' && !location.hash);
   };
 
   // Navigation links
@@ -111,18 +111,18 @@ const Header = () => {
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-content">
-        <motion.div 
+        <motion.div
           className="logo"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
           <Link to="/#home" onClick={closeMenu}>
-          <span>{"<Devfolio />"}</span>
-          <div className="logo-highlight"></div>
+            <span>{"<Devfolio />"}</span>
+            <div className="logo-highlight"></div>
           </Link>
         </motion.div>
-        
+
         <motion.button
           className={`menu-btn ${menuOpen ? 'active' : ''}`}
           onClick={toggleMenu}
@@ -138,8 +138,8 @@ const Header = () => {
           <span className="menu-btn__line middle"></span>
           <span className="menu-btn__line bottom"></span>
         </motion.button>
-        
-        <nav 
+
+        <nav
           id="main-navigation"
           ref={navRef}
           className={`nav ${menuOpen ? 'active' : ''}`}
@@ -148,7 +148,7 @@ const Header = () => {
           <ul className="nav-list">
             {navLinks.map((link) => (
               <li key={link.id} className="nav-item">
-                <Link 
+                <Link
                   to={`/#${link.id}`}
                   className={`nav-link ${isActive(link.id) ? 'active' : ''}`}
                   onClick={closeMenu}
@@ -161,7 +161,7 @@ const Header = () => {
             ))}
           </ul>
         </nav>
-        
+
         {/* Social Icons and Theme Toggle - Combined into one section */}
         <div className="desktop-actions">
           <div className="desktop-social-links">
@@ -183,8 +183,8 @@ const Header = () => {
               </motion.a>
             ))}
           </div>
-          
-          <motion.button 
+
+          <motion.button
             className="theme-toggle"
             onClick={() => setDarkMode(!darkMode)}
             aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
