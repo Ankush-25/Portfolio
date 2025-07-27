@@ -16,7 +16,6 @@ export const ThemeProvider = ({ children }) => {
     return 'light';
   });
 
-  // Apply theme class to document element
   useEffect(() => {
     const root = document.documentElement;
     
