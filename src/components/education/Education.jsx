@@ -25,11 +25,11 @@ const education = [
     period: '2020 – 2023',
     icon: <FaBook className="education-icon" />,
     details: [
-      'Computer Science Major',
+      'Applied Science Major',
       '• Mathematics',
-      '• Programming Fundamentals',
-      '• Database Management',
-      '• Web Technologies'
+      '• Physics',
+      '• Chemistry',
+      '• Biology'
     ]
   }
 ];
