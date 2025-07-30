@@ -100,43 +100,85 @@ const Projects = () => {
     ? projects 
     : projects.filter(project => project.category === selectedCategory);
 
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2
+        staggerChildren: 0.1,
+        delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: { 
         type: 'spring', 
         stiffness: 100,
-        damping: 12
+        damping: 15,
+        mass: 0.5
+      }
+    },
+    hover: {
+      y: -8,
+      boxShadow: '0 15px 30px -10px rgba(0, 0, 0, 0.3)',
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+        damping: 15
       }
     }
   };
 
   const modalVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.95 
+    },
     visible: { 
       opacity: 1, 
+      y: 0,
       scale: 1,
-      transition: { type: 'spring', stiffness: 300, damping: 25 }
+      transition: { 
+        type: 'spring', 
+        stiffness: 400,
+        damping: 30,
+        mass: 0.8
+      }
     },
-    exit: { opacity: 0, scale: 0.9 }
+    exit: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.95,
+      transition: { duration: 0.2 }
+    }
   };
 
   const overlayVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1 }
+    visible: { 
+      opacity: 1,
+      transition: { duration: 0.2 }
+    },
+    exit: { 
+      opacity: 0,
+      transition: { duration: 0.2 }
+    }
+  };
+
+  const buttonHover = {
+    scale: 1.05,
+    transition: { type: 'spring', stiffness: 400, damping: 10 }
+  };
+
+  const buttonTap = {
+    scale: 0.98
   };
 
   return (
@@ -148,41 +190,68 @@ const Projects = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="projects-container"
         >
-          <motion.h2 
+          <motion.h2
             className="section-title"
             variants={itemVariants}
           >
-            <span className="section-number">02.</span> Featured Projects
+            <span className="section-number"></span> Featured Projects
           </motion.h2>
 
-          <motion.div 
+          <motion.div
             className="project-filters"
             variants={itemVariants}
           >
-            {categories.map(category => (
-              <button
+            {categories.map((category) => (
+              <motion.button
                 key={category.id}
                 className={`filter-btn ${selectedCategory === category.id ? 'active' : ''}`}
                 onClick={() => setSelectedCategory(category.id)}
+                whileHover={buttonHover}
+                whileTap={buttonTap}
                 aria-label={`Filter ${category.name}`}
+                aria-pressed={selectedCategory === category.id}
               >
                 {category.name}
-              </button>
+                {selectedCategory === category.id && (
+                  <motion.span
+                    className="active-indicator"
+                    layoutId="activeFilter"
+                    initial={false}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 500,
+                      damping: 30,
+                    }}
+                  />
+                )}
+              </motion.button>
             ))}
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="projects-grid"
             variants={containerVariants}
           >
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project) => (
-                <motion.article 
-                  key={project.id} 
+                <motion.article
+                  key={project.id}
                   className="project-card"
                   variants={itemVariants}
-                  whileHover={{ y: -5 }}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={['hover', 'visible']}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedProject(project)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedProject(project);
+                    }
+                  }}
+                  aria-label={`View details of ${project.title}`}
                 >
                   <div className="project-content">
                     <div className="project-header">
@@ -192,9 +261,9 @@ const Projects = () => {
                       <h3 className="project-title">{project.title}</h3>
                       <p className="project-subtitle">{project.subtitle}</p>
                     </div>
-                    
+
                     <p className="project-description">{project.description}</p>
-                    
+
                     <div className="project-technologies">
                       {project.technologies.map((tech, index) => (
                         <span key={index} className="tech-tag">
@@ -203,12 +272,12 @@ const Projects = () => {
                         </span>
                       ))}
                     </div>
-                    
+
                     <div className="project-links">
                       {project.github && (
-                        <a 
-                          href={project.github} 
-                          target="_blank" 
+                        <a
+                          href={project.github}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="project-link"
                           onClick={(e) => e.stopPropagation()}
@@ -217,9 +286,9 @@ const Projects = () => {
                         </a>
                       )}
                       {project.demo && (
-                        <a 
-                          href={project.demo} 
-                          target="_blank" 
+                        <a
+                          href={project.demo}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="project-link demo"
                           onClick={(e) => e.stopPropagation()}
@@ -228,7 +297,7 @@ const Projects = () => {
                         </a>
                       )}
                     </div>
-                  </div> {/* Close project-content */}
+                  </div>
                 </motion.article>
               ))
             ) : (
@@ -243,27 +312,79 @@ const Projects = () => {
       {/* Project Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <motion.div 
+          <motion.div
             className="project-modal-overlay"
             onClick={() => setSelectedProject(null)}
             initial="hidden"
             animate="visible"
-            exit="hidden"
+            exit="exit"
             variants={overlayVariants}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+              padding: '1rem',
+              overflowY: 'auto',
+            }}
           >
-            <motion.div 
+            <motion.div
               className="project-modal"
               onClick={(e) => e.stopPropagation()}
               variants={modalVariants}
+              style={{
+                background: 'linear-gradient(145deg, #1a1a2e 0%, #16213e 100%)',
+                borderRadius: '16px',
+                padding: '2rem',
+                maxWidth: '800px',
+                width: '100%',
+                maxHeight: '90vh',
+                overflowY: 'auto',
+                position: 'relative',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.3)',
+              }}
             >
-              <button 
+              <button
+                className="close-modal"
+                onClick={() => setSelectedProject(null)}
+                style={{
+                  position: 'absolute',
+                  top: '1rem',
+                  right: '1rem',
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#fff',
+                  fontSize: '1.5rem',
+                  cursor: 'pointer',
+                  width: '40px',
+                  height: '40px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '50%',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
+                onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                aria-label="Close modal"
+              >
+                &times;
+              </button>
+              <button
                 className="modal-close"
                 onClick={() => setSelectedProject(null)}
                 aria-label="Close modal"
               >
                 &times;
               </button>
-              
+
               <div className="modal-header">
                 <div className="modal-icon">
                   {selectedProject.icon}
