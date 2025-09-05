@@ -528,11 +528,17 @@
   .header-content {
     padding: 0 1.5rem;
   }
-  
+
   .menu-btn {
     display: block;
+    width: 44px; /* Increased touch target */
+    height: 44px;
   }
-  
+
+  .menu-btn span {
+    height: 4px; /* Thicker lines for better visibility */
+  }
+
   .nav {
     position: fixed;
     top: 0;
@@ -550,27 +556,27 @@
     z-index: 1000;
     border-left: 1px solid rgba(0, 238, 255, 0.1);
   }
-  
+
   .nav.active {
     right: 0;
   }
-  
+
   .nav-list {
     flex-direction: column;
     gap: 1.8rem;
     width: 100%;
     padding: 0 2rem;
   }
-  
+
   .nav-link {
     font-size: 1.15rem;
-    padding: 10px 20px;
+    padding: 12px 24px; /* Larger touch area */
   }
-  
+
   .desktop-actions {
     display: none;
   }
-  
+
   .mobile-actions {
     display: flex;
     position: absolute;

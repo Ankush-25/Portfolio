@@ -19,6 +19,7 @@
   --section-padding: 5rem 0;
   --border-radius: 8px;
   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --header-height: 76px;  /* Added header height variable */
 }
 
 html {
@@ -41,28 +42,6 @@ body {
 }
 
 /* Layout */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Base document flow */
-html {
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow-x: hidden;
-  background-color: var(--bg-color);
-  position: relative;
-}
-
 #root {
   display: flex;
   flex-direction: column;
@@ -129,7 +108,7 @@ section:first-child {
 
 /* Account for fixed header */
 .main-content {
-  padding-top: 76px;
+  padding-top: var(--header-height);
 }
 
 /* Sections */
@@ -202,6 +181,13 @@ a:hover {
   color: #0cc0df;
 }
 
+/* Accessibility: Focus styles for interactive elements */
+a:focus,
+.btn:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -220,6 +206,8 @@ a:hover {
   cursor: pointer;
   transition: var(--transition);
   box-shadow: 0 5px 15px rgba(0, 238, 255, 0.3);
+  min-height: 44px; /* Minimum touch target */
+  min-width: 44px;
 }
 
 .btn:hover {
@@ -278,6 +266,7 @@ a:hover {
 
 .fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
+  will-change: transform, opacity;
 }
 
 /* Responsive Design */
@@ -319,29 +308,35 @@ a:hover {
     --container-padding: 1.25rem;
     --section-padding: 3rem 0;
   }
-  
+
   html {
-    font-size: 15px;
+    font-size: 16px; /* Increased for better readability */
   }
-  
+
   h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem; /* Slightly larger for mobile */
   }
-  
+
   h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
-  
+
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
-  
+
   .main-content {
     padding-top: 60px;
   }
-  
+
   .section-title h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+
+  /* Improve touch targets on mobile */
+  .btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
   }
 }
 

@@ -337,28 +337,31 @@
   .projects-section {
     padding: 4rem 1.5rem;
   }
-  
+
   .section-title {
     font-size: 2rem;
     margin-bottom: 2.5rem;
   }
-  
+
   .project-card {
     padding: 2rem;
+    min-height: 200px; /* Ensure minimum touch area */
   }
-  
+
   .project-title {
     font-size: 1.6rem;
   }
-  
+
   .project-links {
     flex-direction: column;
     gap: 0.8rem;
   }
-  
+
   .project-link {
     justify-content: center;
-    padding: 0.7rem 1.5rem;
+    padding: 1rem 2rem; /* Larger touch targets */
+    min-height: 48px;
+    font-size: 1rem;
   }
 }
 
