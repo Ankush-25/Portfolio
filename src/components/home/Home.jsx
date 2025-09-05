@@ -97,7 +97,7 @@ export function CometCardDemo() {
               loading="lazy"
               className="absolute inset-0 h-full w-full rounded-[16px] bg-[#000000] object-cover contrast-100"
               alt="Invite background"
-              src="/public/photo.jpg"
+              src="/photo.jpg"
               style={{
                 boxShadow: "rgba(49, 34, 34, 0.05) 0px 5px 6px 0px",
                 opacity: 1,
