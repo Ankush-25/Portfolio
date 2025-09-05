@@ -17,17 +17,6 @@ const HomePage = () => {
       </section>
       
       <Suspense fallback={<div className="loading-section">Loading...</div>}>
-        <section id="about" className="section">
-          <div className="container">
-            <About />
-          </div>
-        </section>
-        
-        <section id="skills" className="section">
-          <div className="container">
-            <Skills />
-          </div>
-        </section>
         
         <section id="experience" className="section">
           <div className="container">
@@ -38,6 +27,12 @@ const HomePage = () => {
         <section id="projects" className="projects-wrapper">
           <div className="container">
             <Projects />
+          </div>
+        </section>
+
+        <section id="skills" className="section">
+          <div className="container">
+            <Skills />
           </div>
         </section>
         
@@ -52,6 +47,13 @@ const HomePage = () => {
             <Certifications />
           </div>
         </section>
+
+        <section id="about" className="section">
+          <div className="container">
+            <About />
+          </div>
+        </section>
+
         <section id="contact" className="section">
           <div className="container">
             <Contact />

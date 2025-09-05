@@ -32,8 +32,8 @@ const Layout = ({ children }) => {
 
   return (
     <div className="app">
-      <FloatingNav navItems={navItems} className="!m-auto !h-10 gap-5 !p-5" style={{color: 'white'}} />
-      <Header />
+      <FloatingNav navItems={navItems} className="!m-auto !text-white  !h-15 gap-15 !p-7" style={{color: 'white'}} />
+      
       <main className="main-content">
         {children}
       </main>
