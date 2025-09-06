@@ -16,12 +16,9 @@ const HomePage = () => {
         <Home />
       </section>
       
-      <Suspense fallback={<div className="loading-section">Loading...</div>}>
         
-        <section id="experience" className="section">
-          <div className="container">
+        <section id="experience" className="section !bg-black">
             <Experience />
-          </div>
         </section>
         
         <section id="projects" className="projects-wrapper">
@@ -59,7 +56,7 @@ const HomePage = () => {
             <Contact />
           </div>
         </section>
-      </Suspense>
+
     </div>
   );
 };

@@ -135,7 +135,7 @@ const Home = () => {
 
   return (
     <main className="main-container" ref={ref} aria-label="Introduction">
-      <section id="home" className="home !relative">
+      <section id="home" className="home !relative !min-h-[90vh]">
         <div className="container home-grid">
           {/* Content Section */}
           <motion.div
