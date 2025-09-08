@@ -1,7 +1,6 @@
 /* Contact Section */
 .contact-section {
   padding: 6rem 1rem;
-  background-color: var(--bg-secondary);
   position: relative;
   overflow: hidden;
   min-height: 100vh;

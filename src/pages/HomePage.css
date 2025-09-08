@@ -18,9 +18,6 @@
   z-index: 1;
 }
 
-.section:nth-child(even) {
-  background-color: var(--bg-secondary);
-}
 
 .section::before {
   content: '';

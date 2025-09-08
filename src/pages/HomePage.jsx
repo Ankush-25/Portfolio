@@ -21,8 +21,8 @@ const HomePage = () => {
             <Experience />
         </section>
         
-        <section id="projects" className="projects-wrapper">
-          <div className="container">
+        <section id="projects" className="projects-wrapper !bg-black">
+          <div className="container !bg-black">
             <Projects />
           </div>
         </section>

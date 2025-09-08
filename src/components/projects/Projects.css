@@ -4,7 +4,6 @@
   z-index: 1;
   width: 100%;
   padding: 6rem 2rem;
-  background: transparent;
   color: #fff;
   margin: 0 auto;
   box-sizing: border-box;
@@ -26,7 +25,6 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at center, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
   z-index: -1;
   opacity: 0.5;
   animation: rotate 60s linear infinite;
@@ -216,8 +214,8 @@
 .project-link {
   display: inline-flex;
   align-items: center;
-  padding: 0.6rem 1.5rem;
-  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
   font-weight: 600;
   font-size: 0.95rem;
   text-decoration: none;
@@ -263,7 +261,7 @@
 .filter-btn {
   padding: 0.6rem 1.5rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 50px;
   background: rgba(108, 99, 255, 0.1);
   color: #b5b1ff;
   font-size: 0.95rem;

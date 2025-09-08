@@ -18,41 +18,36 @@ export function FloatingItems(
       icon: (
         <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "#",
+      href: "https://github.com/Ankush-25",
+      target: "_blank",
+      rel: "noopener noreferrer"
     },
-
     {
-      title: "Linkedin",
+      title: "LinkedIn",
       icon: (
         <IconBrandLinkedin className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "#",
+      href: "https://www.linkedin.com/in/ankit-bhandari25/",
+      target: "_blank",
+      rel: "noopener noreferrer"
     },
     {
-      title: "X",
+      title: "X (Twitter)",
       icon: (
         <IconBrandX className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "#",
+      href: "https://x.com/bhandariji1298/",
+      target: "_blank",
+      rel: "noopener noreferrer"
     },
-    // {
-    //   title: "LeetCode",
-    //   icon: (
-    //     <img
-    //       src="https://assets.aceternity.com/logo-dark.png"
-    //       width={20}
-    //       height={20}
-    //       alt="Aceternity Logo"
-    //     />
-    //   ),
-    //   href: "#",
-    // },
     {
-      title: "Leetcode",
+      title: "LeetCode",
       icon: (
         <IconBrandLeetcode className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "#",
+      href: "https://leetcode.com/u/Ankush-25/",
+      target: "_blank",
+      rel: "noopener noreferrer"
     },
 
     // {

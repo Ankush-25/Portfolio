@@ -95,12 +95,9 @@ section {
   position: relative;
   padding: var(--section-padding);
   overflow: hidden;
-  background-color: var(--bg-primary);
 }
 
-section:nth-child(even) {
-  background-color: var(--bg-secondary);
-}
+
 
 section::before {
   content: '';
