@@ -52,6 +52,36 @@ const Contact = () => {
     } finally {
       setIsSubmitting(false);
     }
+
+    class ShareButtons {
+      constructor(message, url) {
+        this.message = encodeURIComponent(message);
+        this.url = encodeURIComponent(url);
+      }
+    
+      shareWhatsApp() {
+        const whatsappUrl = `https://wa.me/?text=${this.message}%20${this.url}`;
+        window.open(whatsappUrl, "_blank");
+      }
+    
+      shareLinkedIn() {
+        // LinkedIn mainly shares URLs; messages are usually not accepted
+        const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${this.url}`;
+        window.open(linkedInUrl, "_blank");
+      }
+    
+      shareTwitter() {
+        const twitterUrl = `https://twitter.com/intent/tweet?text=${this.message}%20${this.url}`;
+        window.open(twitterUrl, "_blank");
+      }
+    }
+    
+    // Usage
+    const fullMessage = formData.message + " " + window.location.href;
+    const sharer = new ShareButtons(fullMessage, window.location.href);
+    sharer.shareWhatsApp();
+    
+
   };
 
   return (

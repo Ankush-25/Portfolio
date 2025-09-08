@@ -32,10 +32,6 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <div className="footer-shapes">
-        <div className="shape shape-1"></div>
-        <div className="shape shape-2"></div>
-      </div>
       
       <div className="container">
         <motion.div 

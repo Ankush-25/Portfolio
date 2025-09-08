@@ -1,49 +1,14 @@
 /* Footer Styles */
 .footer {
   position: relative;
-  background: linear-gradient(135deg, #0c0b1d, #16162e, #1d1c3a);
   color: #e6f1ff;
   padding: 6rem 0 0;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.footer-shapes {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
 
-.footer-shapes .shape {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.1;
-  z-index: -1;
-}
 
-.footer-shapes .shape-1 {
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(135deg, #6c63ff, #00eeff);
-  top: -150px;
-  right: -100px;
-  animation: float 8s ease-in-out infinite;
-}
-
-.footer-shapes .shape-2 {
-  width: 400px;
-  height: 400px;
-  background: linear-gradient(135deg, #00eeff, #ff00cc);
-  bottom: -200px;
-  left: -100px;
-  opacity: 0.08;
-  animation: float 10s ease-in-out infinite 1s;
-}
 
 .container {
   width: 100%;
