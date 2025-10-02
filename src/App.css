@@ -163,7 +163,6 @@ a:hover {
 }
 
 .btn-primary {
-  background-color: var(--primary);
   color: white;
   box-shadow: 0 4px 14px rgba(108, 99, 255, 0.3);
 }

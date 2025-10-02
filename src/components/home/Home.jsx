@@ -135,7 +135,7 @@ const Home = () => {
 
   return (
     <main className="main-container" ref={ref} aria-label="Introduction">
-      <section id="home" className="home !relative !min-h-[90vh]">
+      <section id="home" className="home !p-0 !relative min-h-[90vh] ">
         <div className="container home-grid">
           {/* Content Section */}
           <motion.div
@@ -204,7 +204,7 @@ const Home = () => {
             </motion.div>
           </motion.div>
           <motion.div>
-            <FloatingItems className=" flex absolute z-10 bottom-25 left-2/5 !p-2 !flex !align-items-center !pb-3" />
+            <FloatingItems className="absolute z-10 bottom-25 left-1/2 -translate-x-1/2" />
           </motion.div>
           
           <motion.div className="home-image">

@@ -66,9 +66,9 @@ export function FloatingItems(
     // },
   ];
   return (
-    <div className="flex flex-col items-center justify-center h-[35rem] w-full">
+    <div className="sm:flex flex-col items-center justify-center sm:h-[35rem] w-full">
       <FloatingDock
-        mobileClassName="translate-y-20" // only for demo, remove for production
+        mobileClassName="left-40 !mb-[-40px]" 
         desktopClassName={className}
         items={links}
       />

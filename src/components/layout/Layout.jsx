@@ -22,17 +22,17 @@ const Layout = ({ children }) => {
     }
   }, [location]);
   const navItems = [
-    { name: "Home", link: "#home",icon: <React.Fragment> <icons.House /> </React.Fragment> },
-    { name: "Experience", link: "#experience",icon: <React.Fragment> <icons.Briefcase /> </React.Fragment> },
-    { name: "Skills", link: "#skills",icon: <React.Fragment> <icons.Briefcase /> </React.Fragment> },
-    { name: "Projects", link: "#projects",icon: <React.Fragment> <icons.Briefcase /> </React.Fragment> },
-    { name: "About", link: "#about",icon: <React.Fragment> <icons.Briefcase /> </React.Fragment> },
-    { name: "Contact", link: "#contact",icon: <React.Fragment> <icons.Briefcase /> </React.Fragment> },
+    { name: "Home", link: "#home" },
+    { name: "Experience", link: "#experience" },
+    { name: "Skills", link: "#skills"},
+    { name: "Projects", link: "#projects"},
+    { name: "About", link: "#about" },
+    { name: "Contact", link: "#contact" },
   ];
 
   return (
     <div className="app">
-      <FloatingNav navItems={navItems} className="!m-auto !text-white  !h-15 gap-15 !p-7" style={{color: 'white'}} />
+      <FloatingNav navItems={navItems} className="!m-auto !text-white  !h-15  gap-5 sm:gap-15 !p-7" style={{color: 'white'}} />
       
       <main className="main-content">
         {children}

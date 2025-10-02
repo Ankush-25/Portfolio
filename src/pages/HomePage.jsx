@@ -1,4 +1,3 @@
-import React, { Suspense } from 'react';
 import Home from '../components/home/Home';
 import About from '../components/about/About';
 import Projects from '../components/projects/Projects';
@@ -15,7 +14,6 @@ const HomePage = () => {
       <section id="home" className="section home-section">
         <Home />
       </section>
-      
         
         <section id="experience" className="section !bg-black">
             <Experience />

@@ -139,7 +139,6 @@ a:hover {
 
 /* Buttons */
 button, .btn {
-  background-color: var(--primary);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
