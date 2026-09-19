@@ -7,41 +7,22 @@ import './Experience.css';
 import { Timeline } from "../../components/ui/timeline";
 
 export function TimelineDemo() {
-  const data = [
-   
-    {
-      Date:`${experiences[0].period}`,
-      content: (
-        <div>
-          <h3 className=' mt-2 mb-3' style={{color:"#6c63ff"}}>{experiences[0].company}</h3>
-          <h4 className='mt-2 mb-3'>{experiences[0].position}</h4>
-          <p className="mb-10 text-md font-normal !text-base text-neutral-800 md:text-sm dark:text-neutral-200">
-            {experiences[0].achievements.map((achievement, index) => (
-              <ul>
-                <li className="mb-4" key={index}>• {achievement}</li>
-              </ul>
-            ))}
-          </p>
-        </div>
-      ),
-    },
-    {
-      Date: `${experiences[1].period}`,
-      content: (
-        <div>
-          <h3 className=' mt-2 mb-3' style={{color:"#6c63ff"}}>{experiences[1].company}</h3>
-          <h4 className='mt-2 mb-3'>{experiences[1].position}</h4>
-          <p className="mb-10 text-md font-normal !text-base text-neutral-800 md:text-sm dark:text-neutral-200">
-            {experiences[1].achievements.map((achievement, index) => (
-              <ul>
-                <li className="mb-4" key={index}>• {achievement}</li>
-              </ul>
-            ))}
-          </p>
-        </div>
-      ),
-    }
-  ];
+  const data = experiences.map((exp) => ({
+    Date: `${exp.period}`,
+    content: (
+      <div>
+        <h3 className=' mt-2 mb-3' style={{color:"#6c63ff"}}>{exp.company}</h3>
+        <h4 className='mt-2 mb-3'>{exp.position}</h4>
+        <p className="mb-10 text-md font-normal !text-base text-neutral-800 md:text-sm dark:text-neutral-200">
+          {exp.achievements.map((achievement, index) => (
+            <ul>
+              <li className="mb-4" key={index}>• {achievement}</li>
+            </ul>
+          ))}
+        </p>
+      </div>
+    ),
+  }));
   return (
     <div className="relative w-full overflow-clip">
       <Timeline data={data} />
@@ -51,27 +32,42 @@ export function TimelineDemo() {
 
 const experiences = [
   {
-    company: "Vigyapanam Pvt. Ltd.",
-    position: "FrontEnd Developer Intern",
-    period: "Jun 2024 – Dec 2024",
+    company: "Acelucid Technologies Pvt. Ltd.",
+    position: "Software Development Engineer I",
+    period: "Jan 2026 – Present",
     achievements: [
-      "Developed a dynamic scheduling system using React.js, improving task efficiency by 30%",
-      "Built responsive landing pages for 5+ product campaigns, boosting user engagement by 25%",
-      "Optimized page load speed by 40%",
-      "Implemented SEO-friendly HTML/CSS structures"
+      "Developed backend services for SuperPersova, a multi-tenant, microservice-based SaaS platform for HR management, recruitment, employee tracking, and assessments using TypeScript, Fastify, and MongoDB.",
+      "Developed and maintained APIs for the Recruitment and Proctoring modules, implementing end-to-end workflows for job postings, applications, candidates, assessments, interviews, and proctored sessions.",
+      "Optimized backend APIs to support 6,000+ concurrent users through MongoDB query optimization, indexing, Redis caching, and efficient service-layer architecture.",
+      "Designed and implemented service-layer and dependency-injection patterns to improve modularity, maintainability, and scalability across backend services.",
+      "Worked with multi-database support, enabling tenant-aware data access and workflows across the platform.",
+      "Worked on RBAC and tenant-based authorization with granular permissions across multiple application modules.",
+      "Built and integrated Event Bus-based communication and synchronization services to coordinate data and events between core and independent microservices.",
+      "Worked on Redis caching and AWS SQS-based queuing for high-volume asynchronous processing, improving application responsiveness and reducing database load.",
+      "Deployed backend services on AWS EC2 and implemented GitHub Actions CI/CD pipelines for automated build, deployment, and release workflows."
     ],
   },
   {
-    company: "Acroknacks Pvt. Ltd.",
-    position: "Software Engineer Trainee",
-    period: "Jan 2025 – Feb 2025",
+    company: "Vigyapanam",
+    position: "Software Developer Intern",
+    period: "Jun 2025 – Dec 2025",
     achievements: [
-      "Developed a dynamic React.js scheduling system, improving task throughput by 30%.",
-      "Integrated REST APIs with JWT authentication and managed data flow using Axios.",
-      "Practiced Agile methodologies using JIRA and collaborated via Git/Bitbucket.",
-      "Gained hands-on experience in debugging, sprint planning, and CI/CD practices."
+      "Developed 20+ responsive landing pages using HTML, CSS, and JavaScript.",
+      "Improved page load performance by 40%.",
+      "Built backend APIs using Node.js.",
+      "Implemented authentication, validation, and exception handling."
     ],
-  }
+  },
+  {
+    company: "Acroknacks Technology Solutions Pvt. Ltd.",
+    position: "Software Engineer Intern",
+    period: "Jan 2025 – Mar 2025",
+    achievements: [
+      "Worked on production modules using React.js.",
+      "Debugged issues and improved UI consistency.",
+      "Performed manual testing and regression validation with QA teams."
+    ],
+  },
 ];
 
 

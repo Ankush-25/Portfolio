@@ -13,9 +13,9 @@ import { FloatingItems } from "./docItems";
 import { Cover } from "../../components/ui/cover";
 
 const professions = [
-  "Fullstack Engineer",
-  "MERN Stack Engineer",
-  "Machine Learning Enthusiast",
+  "Backend-focused Full-Stack Developer",
+  "Software Development Engineer",
+  "TypeScript & Node.js Engineer",
 ];
 
 const socialLinks = [

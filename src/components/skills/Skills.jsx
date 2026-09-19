@@ -114,6 +114,7 @@ const Skills = () => {
       title: "Languages",
       items: [
         { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+        { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
         { name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
         { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
         { name: "HTML5", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
@@ -126,6 +127,8 @@ const Skills = () => {
         { name: "React.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
         { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
         { name: "Express.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+        { name: "Fastify", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastify/fastify-original.svg" },
+        { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
         { name: "Redux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" }
       ]
     },
@@ -134,6 +137,7 @@ const Skills = () => {
       items: [
         { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
         { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+        { name: "Redis", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" },
         { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
         { name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" }
       ]
@@ -146,6 +150,9 @@ const Skills = () => {
         { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
         { name: "Nginx", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" },
         { name: "AWS", logo: "/aws_icon_146074.png" },
+        { name: "AWS SQS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
+        { name: "Playwright", logo: "https://playwright.dev/img/playwright-logo.svg" },
+        { name: "Cheerio", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
         { name: "VS Code", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" }
       ]
     },
@@ -154,6 +161,7 @@ const Skills = () => {
       items: [
         { name: "RESTful APIs", logo: "https://cdn.worldvectorlogo.com/logos/postman.svg" },
         { name: "JWT Auth", logo: "https://jwt.io/img/icon.svg" },
+        { name: "Gemini API", logo: "https://www.gstatic.com/lamda/images/gemini_sparkle_v2_48px.png" },
         { name: "Agile/Scrum", logo: "https://cdn.worldvectorlogo.com/logos/scrum-1.svg" },
         { name: "CI/CD", logo: "/pngwing.com.png" }
       ]

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaRobot, FaChartLine, FaCode, FaServer, FaAws } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaRobot, FaChartLine, FaCode, FaServer, FaAws, FaBrain, FaGlobe } from 'react-icons/fa';
 import { SiMongodb, SiExpress, SiReact, SiNodedotjs, SiSocketdotio, SiTensorflow, SiPandas, SiPython } from 'react-icons/si';
 
 // Styles
@@ -60,27 +60,26 @@ const projects = [
   },
   {
     id: 3,
-    title: 'AI Voice Assistant',
-    subtitle: 'Smart Voice-Controlled Assistant',
-    description: 'Intelligent voice assistant with natural language processing and task automation',
+    title: "GenAI Chat Application",
+    subtitle: "Real-time AI Chat Application",
+    description: "A real-time AI chat application built with Gemini API and local LLM integration. Features multi-session chat, persistent context, and PDF export capabilities with a fully responsive UI.",
     technologies: [
-      { name: 'Python', icon: <SiPython /> },
-      { name: 'Gemini API', icon: <FaRobot /> },
-      { name: 'SpeechRecognition', icon: <FaRobot /> },
-      { name: 'JavaScript', icon: <FaCode /> },
-      { name: 'Node.js', icon: <SiNodedotjs /> }
+      { name: "Gemini API", icon: <FaRobot /> },
+      { name: "Local LLM", icon: <FaBrain /> },
+      { name: "React", icon: <SiReact /> },
+      { name: "Node.js", icon: <SiNodedotjs /> },
+      { name: "Tailwind CSS", icon: <FaCode /> }
     ],
     icon: <FaRobot className="project-icon" />,
     category: 'ai',
-    github: 'https://github.com/yourusername/ai-voice-assistant',
-    demo: 'https://ai-assistant-demo.com',
+    github: "https://github.com/Ankush-25/genai-chat-app",
+    demo: "",
     features: [
-      'Voice-controlled interface with speech-to-text and text-to-speech',
-      'Integration with Gemini API for natural language understanding',
-      'Task automation (email, calendar, system controls)',
-      'Real-time weather and news updates',
-      'Cross-platform compatibility',
-      'Custom command support'
+      "Real-time chat powered by Gemini API and local LLM integration",
+      "Multi-session chat support",
+      "Persistent context across conversations",
+      "PDF export functionality for chat histories",
+      "Fully responsive UI ensuring seamless experience across all devices"
     ]
   },
   {
@@ -121,25 +120,53 @@ const projects = [
   },
   {
     id: 6,
-    title: "Hiringstore",
-    subtitle: "Job Portal Web Application",
-    description: "A dynamic job portal web application designed to streamline the hiring process for companies and job seekers.",
+    title: "Hiring-Store",
+    subtitle: "AI Job Portal",
+    description: "An AI-powered full-stack job portal built with Node.js, Express, and MongoDB. Integrated Gemini API for intelligent job classification and filtering, with a scalable scraping pipeline using Playwright and Cheerio for DOM parsing.",
     technologies: [
-      { name: "React", icon: <SiReact /> },
       { name: "Node.js", icon: <SiNodedotjs /> },
       { name: "Express.js", icon: <SiExpress /> },
-      { name: "MongoDB", icon: <SiMongodb /> }
+      { name: "MongoDB", icon: <SiMongodb /> },
+      { name: "Gemini API", icon: <FaRobot /> },
+      { name: "Playwright", icon: <FaCode /> },
+      { name: "Cheerio", icon: <FaCode /> },
+      { name: "AWS", icon: <FaAws /> },
+      { name: "Nginx", icon: <FaCode /> }
     ],
     icon: <FaCode className="project-icon" />,
     category: 'web',
     github: "https://github.com/Ankush-25/Hiringstore",
     demo: "",
     features: [
+      "AI-powered job classification and filtering using Gemini API",
+      "Scalable scraping pipeline using Playwright and Cheerio with DOM parsing",
       "Responsive job listings and application interface",
       "User authentication for employers and job seekers",
       "Job posting, editing, and application tracking functionalities",
       "Modern UI/UX for seamless interaction",
-      "Role-based dashboards for companies and candidates"
+      "Role-based dashboards for companies and candidates",
+      "Deployed on AWS with Nginx routing"
+    ]
+  },
+  {
+    id: 7,
+    title: "Personal Portfolio Website",
+    subtitle: "Responsive Developer Portfolio",
+    description: "A responsive personal portfolio website built with React.js and Tailwind CSS to showcase professional experience, projects, skills, and certifications.",
+    technologies: [
+      { name: "React.js", icon: <SiReact /> },
+      { name: "Tailwind CSS", icon: <FaCode /> },
+      { name: "Vercel", icon: <FaGlobe /> }
+    ],
+    icon: <FaGlobe className="project-icon" />,
+    category: 'web',
+    github: "https://github.com/Ankush-25/my-portfolio",
+    demo: "",
+    features: [
+      "Responsive portfolio layout for desktop, tablet, and mobile devices",
+      "Accessible navigation and content structure",
+      "Interactive sections for experience, projects, skills, and certifications",
+      "Deployed on Vercel"
     ]
   }
 ];
@@ -207,9 +234,9 @@ const Projects = () => {
       scale: 1,
       transition: {
         type: 'spring',
-        stiffness: 400,
-        damping: 30,
-        mass: 0.8
+        stiffness: 300, // Reduced stiffness for less bounce
+        damping: 25,
+        mass: 0.5
       }
     },
     exit: {
@@ -242,8 +269,8 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="projects-section !bg-black">
-      <div className="container !bg-black">
+    <section id="projects" className="projects-section">
+      <div className="container">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -429,17 +456,18 @@ const Projects = () => {
                 } 
               }}
               style={{
-                background: 'linear-gradient(145deg, #1a1a2e 0%, #16213e 100%)',
+                backgroundColor: 'var(--card-bg)',
                 borderRadius: '16px',
-                padding: '2rem',
+                padding: '1.5rem', // Reduced padding for mobile
                 maxWidth: 'min(90vw, 800px)',
                 width: '100%',
-                maxHeight: '90vh',
+                maxHeight: '85vh', // Slightly reduced height to ensure close button visibility
                 overflowY: 'auto',
                 position: 'relative',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                border: '1px solid var(--border-color)',
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
                 transformOrigin: 'center',
+                color: 'var(--text-color)'
               }}
               role="dialog"
               aria-modal="true"
@@ -457,7 +485,7 @@ const Projects = () => {
                   right: '1rem',
                   background: 'transparent',
                   border: 'none',
-                  color: '#fff',
+                  color: 'var(--text-color)',
                   fontSize: '1.8rem',
                   cursor: 'pointer',
                   width: '44px',
@@ -489,7 +517,7 @@ const Projects = () => {
                 <div>
                   <h3 id="modal-title" className="text-2xl font-bold mb-1">{selectedProject.title}</h3>
                   {selectedProject.subtitle && (
-                    <p className="modal-subtitle text-gray-300">{selectedProject.subtitle}</p>
+                    <p className="modal-subtitle" style={{ color: 'var(--text-secondary)' }}>{selectedProject.subtitle}</p>
                   )}
                 </div>
               </motion.div>
@@ -500,18 +528,20 @@ const Projects = () => {
                 animate={{ opacity: 1, transition: { delay: 0.2 } }}
               >
                 <motion.div 
-                  className="modal-description bg-gray-900/50 p-4 rounded-lg"
+                  className="modal-description p-4 rounded-lg"
+                  style={{ backgroundColor: 'var(--bg-secondary)' }}
                   whileHover={{ x: 2 }}
                 >
-                  <h4 className="text-lg font-semibold mb-2 text-blue-300">Overview</h4>
-                  <p className="text-gray-200">{selectedProject.description}</p>
+                  <h4 className="text-lg font-semibold mb-2" style={{ color: 'var(--primary)' }}>Overview</h4>
+                  <p style={{ color: 'var(--text-secondary)' }}>{selectedProject.description}</p>
                 </motion.div>
 
                 <motion.div 
-                  className="modal-features bg-gray-900/50 p-4 rounded-lg"
+                  className="modal-features p-4 rounded-lg"
+                  style={{ backgroundColor: 'var(--bg-secondary)' }}
                   whileHover={{ x: 2 }}
                 >
-                  <h4 className="text-lg font-semibold mb-3 text-blue-300">Key Features</h4>
+                  <h4 className="text-lg font-semibold mb-3" style={{ color: 'var(--primary)' }}>Key Features</h4>
                   <ul className="space-y-2">
                     {selectedProject.features.map((feature, index) => (
                       <motion.li 
@@ -529,24 +559,29 @@ const Projects = () => {
                           }
                         }}
                       >
-                        <span className="feature-bullet text-blue-400 mr-2 mt-1">•</span>
-                        <span className="text-gray-200">{feature}</span>
+                        <span className="feature-bullet mr-2 mt-1" style={{ color: 'var(--primary)' }}>•</span>
+                        <span style={{ color: 'var(--text-secondary)' }}>{feature}</span>
                       </motion.li>
                     ))}
                   </ul>
                 </motion.div>
 
                 <motion.div 
-                  className="modal-technologies bg-gray-900/50 p-4 rounded-lg"
+                  className="modal-technologies p-4 rounded-lg"
+                  style={{ backgroundColor: 'var(--bg-secondary)' }}
                   whileHover={{ x: 2 }}
                 >
-                  <h4 className="text-lg font-semibold mb-3 text-blue-300">Technologies Used</h4>
+                  <h4 className="text-lg font-semibold mb-3" style={{ color: 'var(--primary)' }}>Technologies Used</h4>
                   <div className="tech-tags flex flex-wrap gap-2">
                     {selectedProject.technologies.map((tech, index) => (
                       <motion.span 
                         key={index} 
-                        className="tech-tag flex items-center gap-2 px-3 py-1.5 bg-gray-800/80 rounded-full text-sm"
-                        whileHover={{ y: -2, backgroundColor: 'rgba(30, 41, 59, 0.8)' }}
+                        className="tech-tag flex items-center gap-2 px-3 py-1.5 rounded-full text-sm"
+                        style={{ 
+                          backgroundColor: 'var(--card-bg)', 
+                          border: '1px solid var(--border-color)' 
+                        }}
+                        whileHover={{ y: -2, backgroundColor: 'var(--hover-bg)' }}
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ 
                           opacity: 1, 
@@ -559,8 +594,8 @@ const Projects = () => {
                           }
                         }}
                       >
-                        <span className="text-blue-300">{tech.icon}</span>
-                        <span className="text-gray-200">{tech.name}</span>
+                        <span style={{ color: 'var(--primary)' }}>{tech.icon}</span>
+                        <span style={{ color: 'var(--text-color)' }}>{tech.name}</span>
                       </motion.span>
                     ))}
                   </div>
@@ -580,8 +615,17 @@ const Projects = () => {
                       href={selectedProject.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn btn-github flex items-center gap-2 px-6 py-2.5 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors"
-                      whileHover={{ y: -2, boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)' }}
+                      className="btn btn-github flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium transition-colors"
+                      style={{ 
+                        backgroundColor: 'var(--bg-secondary)', 
+                        color: 'var(--text-color)',
+                        border: '1px solid var(--border-color)'
+                      }}
+                      whileHover={{ 
+                        y: -2, 
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'var(--hover-bg)'
+                      }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <FaGithub className="text-lg" />
@@ -593,8 +637,16 @@ const Projects = () => {
                       href={selectedProject.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn btn-demo flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors"
-                      whileHover={{ y: -2, boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)' }}
+                      className="btn btn-demo flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium transition-colors"
+                      style={{ 
+                        backgroundColor: 'var(--primary)', 
+                        color: '#fff'
+                      }}
+                      whileHover={{ 
+                        y: -2, 
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+                        backgroundColor: 'var(--primary-dark)'
+                      }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <FaExternalLinkAlt className="text-sm" />

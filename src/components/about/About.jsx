@@ -71,10 +71,7 @@ const About = () => {
           <motion.div className="about-text" variants={itemVariants}>
             <h3>Professional Summary</h3>
             <p>
-              A dedicated and passionate Software Engineer with 7 months of hands-on experience in the software industry. 
-              Proven ability to develop scalable web applications, debug complex issues, and collaborate within Agile teams. 
-              Highly flexible, a quick learner, and driven by a continuous desire to grow. Comfortable working across 
-              the full stack and committed to writing clean, maintainable code that delivers real value.
+              A backend-focused Full-Stack Developer experienced in building scalable, multi-tenant applications and reliable APIs with TypeScript, Fastify, Node.js, MongoDB, and React. I focus on clean service-layer architecture, performance optimization, asynchronous processing, and maintainable systems that deliver real value.
             </p>
             
             <h4>What Drives Me</h4>
