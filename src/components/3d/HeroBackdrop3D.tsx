@@ -21,7 +21,7 @@ void main() {
 
   // Disperse into mini particle layer-up scanlines & waves upon scrolling
   vec3 target = vec3(
-    (aSeed - 0.5) * 3.6,
+    (aSeed - 0.5) * 3.8,
     sin(aSeed * 25.1327) * 0.08 + (floor(position.y * 6.0 + 3.0) - 3.0) * 0.24,
     sin(aSeed * 18.0) * 0.16
   );
@@ -43,8 +43,12 @@ void main() {
   // Shift to warm amber-gold shimmer on scroll
   vColor = mix(aColor, vec3(1.0, 0.58, 0.26), p * 0.6);
 
+  // Radial feathery edge fade matching the soft feathered photo mask
+  float radius = length(position.xy);
+  float feather = smoothstep(0.5, 0.3, radius);
+
   // Fade out and remove completely as scroll progresses
-  vAlpha = max(0.0, 1.0 - p * 1.25) * smoothstep(0.55, 0.35, abs(position.y));
+  vAlpha = max(0.0, 1.0 - p * 1.25) * feather;
 }
 `;
 
@@ -126,7 +130,7 @@ export const HeroBackdrop3D: React.FC = () => {
       uniforms: {
         uTime: { value: 0 },
         uProgress: { value: 0 },
-        uScale: { value: 2.2 },
+        uScale: { value: 2.5 },
         uDpr: { value: Math.min(window.devicePixelRatio, 2) },
       },
     });
@@ -140,7 +144,7 @@ export const HeroBackdrop3D: React.FC = () => {
     const pointsObject = new THREE.Points(particleGeometry, material);
     scene.add(pointsObject);
 
-    // Sync 3D particle scale and vertical center with the big .artifact-fallback image
+    // Sync 3D particle scale and vertical center with the large feathered .artifact-fallback image
     const updateMeshAlignment = () => {
       const fallback = document.querySelector('.artifact-fallback');
       const vHeight = 2 * 4.2 * Math.tan((40 / 2) * (Math.PI / 180)); // ~3.057
@@ -151,7 +155,7 @@ export const HeroBackdrop3D: React.FC = () => {
         pointsObject.position.y = vHeight / 2 - (rect.top + rect.height / 2) * (vHeight / canvasHeight);
       } else {
         const isMobile = window.innerWidth < 768;
-        material.uniforms.uScale.value = isMobile ? 1.8 : 2.2;
+        material.uniforms.uScale.value = isMobile ? 2.2 : 2.8;
         pointsObject.position.set(0, isMobile ? 0.35 : 0.22, 0);
       }
     };
@@ -173,18 +177,6 @@ export const HeroBackdrop3D: React.FC = () => {
     });
     const dust = new THREE.Points(dustGeo, dustMat);
     scene.add(dust);
-
-    // Subtle orbital ring
-    const ringGeo = new THREE.TorusGeometry(3.2, 0.005, 16, 100);
-    const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x444444,
-      transparent: true,
-      opacity: 0.16,
-      wireframe: true,
-    });
-    const ring = new THREE.Mesh(ringGeo, ringMat);
-    ring.rotation.x = Math.PI / 3;
-    scene.add(ring);
 
     // Mouse parallax
     const onMouseMove = (e: MouseEvent) => {
@@ -221,7 +213,6 @@ export const HeroBackdrop3D: React.FC = () => {
       pointsObject.rotation.x = THREE.MathUtils.damp(pointsObject.rotation.x, -mouseRef.current.y * 0.06, 3.5, delta);
 
       dust.rotation.y = time * 0.012;
-      ring.rotation.z = time * 0.02;
 
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);
@@ -236,8 +227,6 @@ export const HeroBackdrop3D: React.FC = () => {
       material.dispose();
       dustGeo.dispose();
       dustMat.dispose();
-      ringGeo.dispose();
-      ringMat.dispose();
       particleGeometry.dispose();
       renderer.dispose();
     };
@@ -251,13 +240,13 @@ export const HeroBackdrop3D: React.FC = () => {
         background: 'radial-gradient(circle at 50% 32%, rgba(45, 45, 45, 0.4) 0%, rgba(3, 3, 3, 0) 65%), #030303',
       }}
     >
-      {/* Big, atmospheric centered portrait matching Sarthak's reference site */}
+      {/* Big, atmospheric centered portrait in soft feathery mode with no stroke or hard edges */}
       <div
         ref={imageRef}
-        className="artifact-fallback absolute top-[40px] sm:top-[60px] left-1/2 -translate-x-1/2 w-[85vw] sm:w-[500px] lg:w-[580px] xl:w-[620px] aspect-square select-none will-change-transform"
+        className="artifact-fallback absolute top-[20px] sm:top-[30px] lg:top-[40px] left-1/2 -translate-x-1/2 w-[95vw] sm:w-[640px] md:w-[740px] lg:w-[820px] xl:w-[900px] max-w-[940px] aspect-square select-none will-change-transform"
         style={{
-          WebkitMaskImage: 'linear-gradient(to bottom, #000 48%, rgba(0,0,0,0.85) 72%, transparent 96%)',
-          maskImage: 'linear-gradient(to bottom, #000 48%, rgba(0,0,0,0.85) 72%, transparent 96%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 48% 46% at 50% 46%, #000 28%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.25) 72%, transparent 92%)',
+          maskImage: 'radial-gradient(ellipse 48% 46% at 50% 46%, #000 28%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.25) 72%, transparent 92%)',
         }}
       >
         <Image
@@ -265,7 +254,7 @@ export const HeroBackdrop3D: React.FC = () => {
           alt=""
           fill
           priority
-          sizes="(max-width: 768px) 85vw, 620px"
+          sizes="(max-width: 768px) 95vw, 900px"
           className="object-contain object-top contrast-110 brightness-105 grayscale hover:grayscale-0 transition-all duration-1000"
         />
         {/* Soft edge ambient light */}
