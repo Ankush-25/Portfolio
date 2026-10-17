@@ -269,3 +269,4 @@ export const HeroPortraitParticle: React.FC = () => {
     </div>
   );
 };
+
