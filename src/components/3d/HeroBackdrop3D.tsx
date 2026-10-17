@@ -17,27 +17,31 @@ varying float vAlpha;
 
 void main() {
   float p = smoothstep(0.02, 0.85, uProgress);
-  // Disperse into mini particle layer-up scanlines / waves upon scrolling
+
+  // Disperse into mini particle layer-up scanlines upon scrolling
   vec3 target = vec3(
-    (aSeed - 0.5) * 3.2,
-    sin(aSeed * 25.1327) * 0.08 + (floor(position.x * 4.0 + 2.0) - 2.0) * 0.22,
-    sin(aSeed * 18.0) * 0.15
+    (aSeed - 0.5) * 2.8,
+    sin(aSeed * 25.1327) * 0.07 + (floor(position.y * 6.0 + 3.0) - 3.0) * 0.16,
+    sin(aSeed * 18.0) * 0.12
   );
   vec3 pos = mix(position, target, p);
-  float edge = smoothstep(0.18, 0.5, abs(position.x));
-  pos.x += sin(uTime * 0.35 + aSeed * 40.0) * 0.012 * (edge + p);
-  pos.y += cos(uTime * 0.25 + aSeed * 30.0) * 0.008 * p;
-  pos.z += sin(aSeed * 64.0 + uTime * 0.2) * 0.02;
+
+  // Subtle natural floating drift
+  float edge = smoothstep(0.15, 0.5, abs(position.x));
+  pos.x += sin(uTime * 0.35 + aSeed * 35.0) * 0.008 * (edge + p);
+  pos.y += cos(uTime * 0.25 + aSeed * 25.0) * 0.006 * p;
+  pos.z += sin(aSeed * 50.0 + uTime * 0.2) * 0.015;
 
   vec4 mv = modelViewMatrix * vec4(pos * uScale, 1.0);
   gl_Position = projectionMatrix * mv;
 
-  // Particle size based on brightness and DPR
-  gl_PointSize = clamp((1.35 + dot(aColor, vec3(0.299, 0.587, 0.114)) * 1.1) * uDpr, 1.0, 5.0);
+  // Round, crisp particle point size with uniform square scale
+  float brightness = dot(aColor, vec3(0.299, 0.587, 0.114));
+  gl_PointSize = clamp((1.8 + brightness * 0.9) * uDpr, 1.5, 4.5);
 
-  // Transition from natural skin/suit tone to amber-gold particle glow on scroll
-  vColor = mix(aColor, vec3(1.0, 0.52, 0.22), p * 0.65);
-  vAlpha = (1.0 - p * 0.4) * smoothstep(0.55, 0.32, abs(position.y));
+  // Amber glow shift on scroll
+  vColor = mix(aColor, vec3(1.0, 0.55, 0.24), p * 0.6);
+  vAlpha = (1.0 - p * 0.35) * smoothstep(0.55, 0.35, abs(position.y));
 }
 `;
 
@@ -46,10 +50,13 @@ varying vec3 vColor;
 varying float vAlpha;
 
 void main() {
+  // Circular point mask to ensure particles are perfectly round, never stretched
   float d = length(gl_PointCoord - 0.5);
-  float alpha = smoothstep(0.5, 0.22, d) * vAlpha;
+  if (d > 0.5) discard;
+  float alpha = smoothstep(0.5, 0.2, d) * vAlpha;
   if (alpha < 0.02) discard;
-  gl_FragColor = vec4(vColor * 1.35, alpha * 0.95);
+
+  gl_FragColor = vec4(vColor * 1.3, alpha * 0.95);
 }
 `;
 
@@ -81,7 +88,7 @@ export const HeroBackdrop3D: React.FC = () => {
       renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
-        antialias: false,
+        antialias: true,
         powerPreference: 'high-performance',
       });
     } catch {
@@ -89,13 +96,12 @@ export const HeroBackdrop3D: React.FC = () => {
     }
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 4.5);
+    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 4.2);
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Particle Material
     const material = new THREE.ShaderMaterial({
       vertexShader,
       fragmentShader,
@@ -105,7 +111,7 @@ export const HeroBackdrop3D: React.FC = () => {
       uniforms: {
         uTime: { value: 0 },
         uProgress: { value: 0 },
-        uScale: { value: 2.8 },
+        uScale: { value: 2.2 },
         uDpr: { value: Math.min(window.devicePixelRatio, 2) },
       },
     });
@@ -113,50 +119,50 @@ export const HeroBackdrop3D: React.FC = () => {
     let pointsObject: THREE.Points | null = null;
     let particleGeometry: THREE.BufferGeometry | null = null;
 
-    // Load & Sample Photo Pixels into 3D Point Cloud
+    // Load & Sample Photo Pixels with strictly preserved 1:1 Aspect Ratio
     const img = new window.Image();
     img.crossOrigin = 'anonymous';
     img.src = '/ankit-hero.png';
 
     img.onload = () => {
       try {
-        const sampleWidth = window.innerWidth < 768 ? 160 : 260;
-        const sampleHeight = Math.round(sampleWidth * 1.25);
+        // True 1:1 square sampling matching 800x800 image
+        const sampleSize = window.innerWidth < 768 ? 180 : 260;
 
         const offCanvas = document.createElement('canvas');
-        offCanvas.width = sampleWidth;
-        offCanvas.height = sampleHeight;
+        offCanvas.width = sampleSize;
+        offCanvas.height = sampleSize;
         const ctx = offCanvas.getContext('2d');
         if (!ctx) return;
 
-        ctx.drawImage(img, 0, 0, sampleWidth, sampleHeight);
-        const imgData = ctx.getImageData(0, 0, sampleWidth, sampleHeight);
+        ctx.drawImage(img, 0, 0, sampleSize, sampleSize);
+        const imgData = ctx.getImageData(0, 0, sampleSize, sampleSize);
         const data = imgData.data;
 
         const positions: number[] = [];
         const colors: number[] = [];
         const seeds: number[] = [];
 
-        for (let y = 0; y < sampleHeight; y++) {
-          for (let x = 0; x < sampleWidth; x++) {
-            const idx = (y * sampleWidth + x) * 4;
+        for (let y = 0; y < sampleSize; y++) {
+          for (let x = 0; x < sampleSize; x++) {
+            const idx = (y * sampleSize + x) * 4;
             const r = data[idx] / 255;
             const g = data[idx + 1] / 255;
             const b = data[idx + 2] / 255;
             const a = data[idx + 3] / 255;
             const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
 
-            // Skip dark/transparent background pixels to isolate the subject
-            if (a < 0.1 || luminance < 0.04) continue;
+            // Filter out black backdrop
+            if (a < 0.1 || luminance < 0.035) continue;
 
-            // Normalize coordinate space
-            const posX = (x / sampleWidth - 0.5) * 0.95;
-            const posY = (0.5 - y / sampleHeight) * 1.15;
-            const posZ = luminance * 0.04;
+            // Pure square mapping: x and y have 1:1 scale
+            const posX = (x / sampleSize - 0.5) * 1.0;
+            const posY = (0.5 - y / sampleSize) * 1.0;
+            const posZ = luminance * 0.03;
 
             positions.push(posX, posY, posZ);
             colors.push(r, g, b);
-            seeds.push(((x * 127 + y * 311) % 997) / 997);
+            seeds.push(((x * 137 + y * 293) % 997) / 997);
           }
         }
 
@@ -167,35 +173,35 @@ export const HeroBackdrop3D: React.FC = () => {
 
         pointsObject = new THREE.Points(particleGeometry, material);
 
-        // Position the particle cloud on the right side over the photo
+        // Position: Centered horizontally (x = 0), matching Sarthak's center layout
         const isMobile = window.innerWidth < 768;
-        pointsObject.position.set(isMobile ? 0 : 0.85, isMobile ? 0.2 : 0, 0);
+        pointsObject.position.set(0, isMobile ? 0.35 : 0.22, 0);
 
         scene.add(pointsObject);
         setIsWebGLReady(true);
       } catch (err) {
-        console.warn('Particle mesh generation fallback', err);
+        console.warn('Particle mesh initialization fallback', err);
       }
     };
 
-    // Ambient floating star dust in background
-    const bgDustCount = 100;
-    const bgDustGeo = new THREE.BufferGeometry();
-    const bgPositions = new Float32Array(bgDustCount * 3);
-    for (let i = 0; i < bgDustCount * 3; i++) {
-      bgPositions[i] = (Math.random() - 0.5) * 20;
+    // Soft celestial particles around the centered portrait
+    const dustCount = 80;
+    const dustGeo = new THREE.BufferGeometry();
+    const dustPositions = new Float32Array(dustCount * 3);
+    for (let i = 0; i < dustCount * 3; i++) {
+      dustPositions[i] = (Math.random() - 0.5) * 16;
     }
-    bgDustGeo.setAttribute('position', new THREE.BufferAttribute(bgPositions, 3));
-    const bgDustMat = new THREE.PointsMaterial({
-      color: 0x777777,
-      size: 0.035,
+    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+    const dustMat = new THREE.PointsMaterial({
+      color: 0x666666,
+      size: 0.03,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.3,
     });
-    const bgDust = new THREE.Points(bgDustGeo, bgDustMat);
-    scene.add(bgDust);
+    const dust = new THREE.Points(dustGeo, dustMat);
+    scene.add(dust);
 
-    // Mouse move parallax
+    // Mouse parallax
     const onMouseMove = (e: MouseEvent) => {
       mouseRef.current.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseRef.current.targetY = -(e.clientY / window.innerHeight - 0.5) * 2;
@@ -210,8 +216,8 @@ export const HeroBackdrop3D: React.FC = () => {
 
       if (pointsObject) {
         const isMob = window.innerWidth < 768;
-        pointsObject.position.set(isMob ? 0 : 0.85, isMob ? 0.2 : 0, 0);
-        material.uniforms.uScale.value = isMob ? 2.2 : 2.8;
+        pointsObject.position.set(0, isMob ? 0.35 : 0.22, 0);
+        material.uniforms.uScale.value = isMob ? 1.8 : 2.2;
       }
     };
     window.addEventListener('resize', onResize);
@@ -224,21 +230,20 @@ export const HeroBackdrop3D: React.FC = () => {
       const delta = clock.getDelta();
       const time = clock.getElapsedTime();
 
-      // Damped mouse interpolation
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
 
-      // Smooth scroll damp for particle layer-up / wave dispersion
       const currentUProgress = material.uniforms.uProgress.value;
       material.uniforms.uProgress.value = THREE.MathUtils.damp(currentUProgress, scrollRef.current, 4.0, delta);
       material.uniforms.uTime.value = time;
 
       if (pointsObject) {
+        // Centered 3D rotational tilt tracking cursor
         pointsObject.rotation.y = THREE.MathUtils.damp(pointsObject.rotation.y, mouseRef.current.x * 0.08, 3.5, delta);
-        pointsObject.rotation.x = THREE.MathUtils.damp(pointsObject.rotation.x, -mouseRef.current.y * 0.05, 3.5, delta);
+        pointsObject.rotation.x = THREE.MathUtils.damp(pointsObject.rotation.x, -mouseRef.current.y * 0.06, 3.5, delta);
       }
 
-      bgDust.rotation.y = time * 0.015;
+      dust.rotation.y = time * 0.012;
 
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);
@@ -251,8 +256,8 @@ export const HeroBackdrop3D: React.FC = () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
       material.dispose();
-      bgDustGeo.dispose();
-      bgDustMat.dispose();
+      dustGeo.dispose();
+      dustMat.dispose();
       particleGeometry?.dispose();
       renderer.dispose();
     };
@@ -263,20 +268,20 @@ export const HeroBackdrop3D: React.FC = () => {
       aria-hidden="true"
       className="scene-backdrop fixed inset-0 z-0 pointer-events-none overflow-hidden"
       style={{
-        background: 'radial-gradient(at 70% 32%, rgba(35, 35, 35, 0.45) 0%, rgba(3, 3, 3, 0) 58%), #030303',
+        background: 'radial-gradient(circle at 50% 35%, rgba(45, 45, 45, 0.4) 0%, rgba(3, 3, 3, 0) 65%), #030303',
       }}
     >
       {/* Three.js 3D Photo Particle Layerup Canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
-      {/* Atmospheric Portrait: When WebGL is ready, opacity shifts to 0.38 so 3D particle points shine directly on top */}
+      {/* Atmospheric Centered Portrait: perfectly aligned with the 3D particles */}
       <div
-        className={`artifact-fallback absolute top-[60px] sm:top-[80px] right-0 sm:right-[5%] w-[85vw] sm:w-[50vw] max-w-[620px] aspect-[4/5] select-none transition-opacity duration-1000 ${
+        className={`artifact-fallback absolute top-[40px] sm:top-[60px] left-1/2 -translate-x-1/2 w-[85vw] sm:w-[500px] lg:w-[560px] aspect-square select-none transition-opacity duration-1000 ${
           isWebGLReady ? 'opacity-35 webgl-active' : 'opacity-85'
         }`}
         style={{
-          WebkitMaskImage: 'linear-gradient(to bottom, #000 35%, rgba(0,0,0,0.85) 65%, transparent 94%)',
-          maskImage: 'linear-gradient(to bottom, #000 35%, rgba(0,0,0,0.85) 65%, transparent 94%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, #000 45%, rgba(0,0,0,0.85) 70%, transparent 95%)',
+          maskImage: 'linear-gradient(to bottom, #000 45%, rgba(0,0,0,0.85) 70%, transparent 95%)',
         }}
       >
         <Image
@@ -284,11 +289,11 @@ export const HeroBackdrop3D: React.FC = () => {
           alt=""
           fill
           priority
-          sizes="(max-width: 768px) 85vw, 620px"
-          className="object-contain object-top contrast-115 grayscale hover:grayscale-0 transition-all duration-1000"
+          sizes="(max-width: 768px) 85vw, 560px"
+          className="object-contain object-center contrast-115 grayscale hover:grayscale-0 transition-all duration-1000"
         />
         {/* Soft edge ambient light */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent opacity-80" />
       </div>
 
       {/* Subtle Matrix Vignette Grid */}

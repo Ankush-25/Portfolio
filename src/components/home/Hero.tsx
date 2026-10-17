@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useMotion } from '@/context/MotionContext';
 import { siteMeta } from '@/content/meta';
 import { SignalText } from '@/components/common/SignalText';
@@ -47,7 +46,7 @@ export const Hero: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-mono uppercase tracking-widest text-muted border-b border-border/80 pb-6">
         <div className="flex items-center space-x-3">
           <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>FULLSTACK ENGINEER · SYSTEM BUILDER · ML RESEARCH</span>
+          <span>FULLSTACK ENGINEER · SYSTEM ARCHITECT · ML RESEARCH</span>
         </div>
         <div className="flex items-center space-x-6 text-zinc-400">
           <span>BASED IN {siteMeta.location.toUpperCase()}</span>
@@ -55,8 +54,8 @@ export const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Core Content */}
-      <div className="my-auto py-12 max-w-4xl relative z-10">
+      {/* Hero Core Content: Centered editorial alignment in front of the 3D particle portrait */}
+      <div className="my-auto py-12 max-w-4xl mx-auto text-center relative z-10">
         {/* Scramble Kicker */}
         <div className="mb-4">
           <SignalText
@@ -67,13 +66,13 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Dynamic Focus Tagline */}
-        <div className="text-sm sm:text-base font-mono text-zinc-400 mb-6 flex items-center space-x-2" aria-live="polite">
+        <div className="text-sm sm:text-base font-mono text-zinc-400 mb-6 flex items-center justify-center space-x-2" aria-live="polite">
           <span className="text-zinc-600">[FOCUS]</span>
           <span>{isMotionEnabled ? taglines[taglineIndex] : taglines[0]}</span>
         </div>
 
         {/* Editorial Heading 1 with Signature Italic Accent */}
-        <h1 className="text-6xl sm:text-8xl lg:text-9xl font-light text-foreground tracking-tight leading-[0.9] mb-8">
+        <h1 className="text-6xl sm:text-8xl lg:text-9xl font-light text-foreground tracking-tight leading-[0.9] mb-8 drop-shadow-2xl">
           {siteMeta.firstName}{' '}
           <span className="font-serif italic font-normal text-white">
             {siteMeta.lastName}
@@ -81,23 +80,22 @@ export const Hero: React.FC = () => {
         </h1>
 
         {/* Pitch Statement */}
-        <p className="text-xl sm:text-2xl text-muted font-light leading-relaxed max-w-2xl mb-10">
+        <p className="text-lg sm:text-2xl text-muted font-light leading-relaxed max-w-2xl mx-auto mb-10 drop-shadow-md">
           I build resilient web platforms, train predictive models, and eliminate digital latency with clean code.
         </p>
 
         {/* Primary Actions with Shimmer & Signal Hover */}
-        <div className="flex flex-wrap items-center gap-5">
+        <div className="flex flex-wrap items-center justify-center gap-5">
           <a
             href="#work"
             data-testid="hero-cta-work"
             onClick={(e) => handleScroll(e, '#work')}
-            className="group relative inline-flex items-center space-x-3 bg-foreground text-background font-mono text-xs uppercase tracking-widest px-8 py-4 rounded-full font-semibold hover:bg-white transition-all shadow-[0_0_35px_rgba(255,255,255,0.2)] overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            className="group relative inline-flex items-center space-x-3 bg-foreground text-background font-mono text-xs uppercase tracking-widest px-8 py-4 rounded-full font-semibold hover:bg-white transition-all shadow-[0_0_40px_rgba(255,255,255,0.25)] overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             <span className="relative z-10 flex items-center space-x-2">
               <SignalText text="Explore my work" />
               <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </span>
-            {/* Shimmer sweep effect */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform pointer-events-none" />
           </a>
 
@@ -105,7 +103,7 @@ export const Hero: React.FC = () => {
             href="#contact"
             data-testid="hero-cta-contact"
             onClick={(e) => handleScroll(e, '#contact')}
-            className="group inline-flex items-center space-x-2 border border-border hover:border-muted text-foreground font-mono text-xs uppercase tracking-widest px-7 py-4 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            className="group inline-flex items-center space-x-2 border border-border/90 bg-surface/60 backdrop-blur-sm hover:border-muted text-foreground font-mono text-xs uppercase tracking-widest px-7 py-4 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
             <SignalText text="Start a conversation" />
             <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
