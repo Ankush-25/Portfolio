@@ -1,0 +1,39 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Next.js Build Outputs
+/.next/
+/out/
+
+# Production Artifacts
+/build
+/dist
+
+# Legacy Archive
+/archive/
+
+# TypeScript Cache
+*.tsbuildinfo
+
+# Environment Variables
+.env
+.env*.local
+
+# Testing & Coverage
+/coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Debug Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
