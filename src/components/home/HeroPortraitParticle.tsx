@@ -38,16 +38,16 @@ void main() {
   vec4 mv = modelViewMatrix * vec4(pos, 1.0);
   gl_Position = projectionMatrix * mv;
 
-  // Crisp circular particle point size: prominent & clearly visible
+  // Crisp circular particle point size: highly prominent and visible
   float brightness = dot(aColor, vec3(0.299, 0.587, 0.114));
-  gl_PointSize = clamp((2.4 + brightness * 2.2) * uDpr, 2.2, 7.2);
+  gl_PointSize = clamp((3.0 + brightness * 2.8) * uDpr, 3.2, 9.0);
 
   // Shift to warm amber-gold shimmer on scroll
-  vColor = mix(aColor, vec3(1.0, 0.65, 0.32), p * 0.65);
+  vColor = mix(aColor, vec3(1.0, 0.68, 0.35), p * 0.65);
 
-  // Radial feathery edge fade matching the soft feathered photo mask
+  // Correct GLSL radial feathering (1.0 - smoothstep(min, max))
   float radius = length(position.xy);
-  float feather = smoothstep(0.5, 0.28, radius);
+  float feather = 1.0 - smoothstep(0.38, 0.5, radius);
 
   // Fade out and remove completely as scroll progresses
   vAlpha = max(0.0, 1.0 - p * 1.25) * feather;
@@ -63,13 +63,13 @@ void main() {
   float d = length(gl_PointCoord - 0.5);
   if (d > 0.5) discard;
 
-  float edge = smoothstep(0.5, 0.12, d);
-  float core = smoothstep(0.22, 0.0, d) * 0.45;
+  float edge = smoothstep(0.5, 0.1, d);
+  float core = smoothstep(0.22, 0.0, d) * 0.65;
   float alpha = edge * vAlpha;
   if (alpha < 0.01) discard;
 
-  // Luminous cybernetic particle glow with core highlight
-  vec3 finalColor = vColor * 1.4 + vec3(core);
+  // Luminous cybernetic particle glow with bright core highlight
+  vec3 finalColor = vColor * 1.55 + vec3(core);
   gl_FragColor = vec4(finalColor, alpha * 0.95);
 }
 `;
@@ -142,6 +142,7 @@ export const HeroPortraitParticle: React.FC = () => {
       fragmentShader,
       transparent: true,
       depthWrite: false,
+      depthTest: false,
       blending: THREE.AdditiveBlending,
       uniforms: {
         uTime: { value: 0 },
@@ -189,6 +190,9 @@ export const HeroPortraitParticle: React.FC = () => {
 
     const onResize = () => {
       updateDimensions();
+      if (material) {
+        material.uniforms.uDpr.value = Math.min(window.devicePixelRatio, 2);
+      }
     };
     window.addEventListener('resize', onResize);
 
@@ -269,4 +273,3 @@ export const HeroPortraitParticle: React.FC = () => {
     </div>
   );
 };
-
