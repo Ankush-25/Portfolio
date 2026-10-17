@@ -4,6 +4,8 @@ import './globals.css';
 import { siteMeta } from '@/content/meta';
 import { MotionProvider } from '@/context/MotionContext';
 import { SkipLink } from '@/components/common/SkipLink';
+import { ScrollProgressBar } from '@/components/common/ScrollProgressBar';
+import { HeroBackdrop3D } from '@/components/3d/HeroBackdrop3D';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 
@@ -60,13 +62,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
 };
 
@@ -91,11 +86,17 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background font-sans">
+      <body className="min-h-screen bg-background text-foreground antialiased selection:bg-foreground selection:text-background font-sans relative">
         <MotionProvider>
+          {/* Top scroll progress indicator */}
+          <ScrollProgressBar />
+
+          {/* 3D Atmospheric Canvas & Masked Portrait Backdrop */}
+          <HeroBackdrop3D />
+
           <SkipLink />
           <Header />
-          <main id="main" tabIndex={-1} className="focus:outline-none">
+          <main id="main" tabIndex={-1} className="relative z-10 focus:outline-none">
             {children}
           </main>
           <Footer />
@@ -104,4 +105,3 @@ export default function RootLayout({
     </html>
   );
 }
-

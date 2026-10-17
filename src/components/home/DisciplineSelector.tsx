@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useMotion } from '@/context/MotionContext';
 import { disciplines } from '@/content/disciplines';
+import { DisciplineCanvas3D } from '@/components/3d/DisciplineCanvas3D';
+import { SignalText } from '@/components/common/SignalText';
 import { ArrowRight, Layers, Cpu, Zap } from 'lucide-react';
 
 const icons = {
@@ -52,15 +54,15 @@ export const DisciplineSelector: React.FC = () => {
   const activeDiscipline = disciplines[selectedIndex];
 
   return (
-    <section aria-label="Core Engineering Disciplines" className="py-24 border-b border-border bg-surface/30">
+    <section aria-label="Core Engineering Disciplines" className="py-24 border-b border-border bg-surface/40 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with rotation indicator */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
           <div>
             <span className="text-xs font-mono uppercase tracking-widest text-muted block mb-2">
-              02 / DISCIPLINES
+              <SignalText text="02 / THREE DISCIPLINES. ONE PERSPECTIVE." />
             </span>
-            <h2 className="text-3xl sm:text-4xl font-light text-foreground tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-light text-foreground tracking-tight">
               Three Lenses of <span className="font-serif italic font-normal text-white">Engineering</span>
             </h2>
           </div>
@@ -92,16 +94,16 @@ export const DisciplineSelector: React.FC = () => {
                 onClick={() => handleTabClick(idx)}
                 onKeyDown={(e) => handleKeyDown(e, idx)}
                 data-testid={`discipline-tab-${item.id}`}
-                className={`flex items-center space-x-3 py-4 px-2 border-b-2 text-sm font-mono tracking-wider transition-all whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground ${
+                className={`flex items-center space-x-3 py-4 px-3 border-b-2 text-sm font-mono tracking-wider transition-all whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground ${
                   isSelected
-                    ? 'border-foreground text-foreground font-medium'
+                    ? 'border-foreground text-foreground font-medium bg-surface/60 rounded-t-lg'
                     : 'border-transparent text-muted hover:text-foreground'
                 }`}
               >
                 <span className={isSelected ? 'text-foreground' : 'text-zinc-500'}>
                   {icons[item.id as keyof typeof icons]}
                 </span>
-                <span>{item.label}</span>
+                <SignalText text={item.label} />
               </button>
             );
           })}
@@ -114,11 +116,12 @@ export const DisciplineSelector: React.FC = () => {
           aria-labelledby={`tab-${activeDiscipline.id}`}
           className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
         >
-          <div className="lg:col-span-8 flex flex-col space-y-6">
-            <h3 className="text-2xl sm:text-3xl font-light text-foreground tracking-tight">
+          {/* Left Column: Core Narrative & Skills */}
+          <div className="lg:col-span-7 flex flex-col space-y-6">
+            <h3 className="text-2xl sm:text-4xl font-light text-foreground tracking-tight leading-snug">
               {activeDiscipline.heading}
             </h3>
-            <p className="text-base sm:text-lg text-muted font-light leading-relaxed max-w-3xl">
+            <p className="text-base sm:text-lg text-muted font-light leading-relaxed max-w-2xl">
               {activeDiscipline.blurb}
             </p>
 
@@ -143,26 +146,26 @@ export const DisciplineSelector: React.FC = () => {
               <Link
                 href={activeDiscipline.ctaHref}
                 data-testid="discipline-panel-cta"
-                className="inline-flex items-center space-x-2 bg-foreground text-background font-mono text-xs uppercase tracking-widest px-6 py-3.5 rounded-full font-semibold hover:bg-white transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+                className="group inline-flex items-center space-x-2 bg-foreground text-background font-mono text-xs uppercase tracking-widest px-7 py-3.5 rounded-full font-semibold hover:bg-white transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
               >
-                <span>{activeDiscipline.ctaText}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <SignalText text={activeDiscipline.ctaText} />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>
 
-          <div className="lg:col-span-4 p-8 rounded-2xl border border-border bg-surface">
-            <span className="text-xs font-mono uppercase text-muted tracking-widest block mb-4">
-              Execution Methodology
-            </span>
-            <div className="space-y-4">
+          {/* Right Column: Interactive 3D Canvas Object */}
+          <div className="lg:col-span-5 flex flex-col space-y-4">
+            <DisciplineCanvas3D activeId={activeDiscipline.id} />
+
+            <div className="p-6 rounded-2xl border border-border bg-surface text-xs font-mono text-muted space-y-3">
+              <span className="text-zinc-500 uppercase tracking-widest block text-[10px]">
+                Execution Steps
+              </span>
               {activeDiscipline.process.map((step) => (
-                <div key={step.step} className="flex items-start space-x-3">
-                  <span className="text-xs font-mono text-zinc-500 mt-1">{step.step}</span>
-                  <div>
-                    <h4 className="text-sm font-medium text-foreground">{step.title}</h4>
-                    <p className="text-xs text-muted mt-1 leading-relaxed">{step.description}</p>
-                  </div>
+                <div key={step.step} className="flex items-start space-x-2">
+                  <span className="text-foreground">{step.step}</span>
+                  <span className="text-zinc-400">{step.title}</span>
                 </div>
               ))}
             </div>
@@ -172,4 +175,3 @@ export const DisciplineSelector: React.FC = () => {
     </section>
   );
 };
-

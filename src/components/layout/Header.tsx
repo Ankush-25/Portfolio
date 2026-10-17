@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useMotion } from '@/context/MotionContext';
 import { siteMeta } from '@/content/meta';
-import { Menu, X, Sparkles, Activity } from 'lucide-react';
+import { SignalText } from '@/components/common/SignalText';
+import { Menu, X, Sparkles, Activity, ArrowUpRight } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { isMotionEnabled, toggleMotion } = useMotion();
@@ -14,7 +15,6 @@ export const Header: React.FC = () => {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  // Smooth scroll handler for anchor links
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     if (pathname === '/') {
       e.preventDefault();
@@ -28,7 +28,6 @@ export const Header: React.FC = () => {
     }
   };
 
-  // Close mobile drawer on Escape key and trap focus
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isMobileMenuOpen) {
@@ -78,35 +77,35 @@ export const Header: React.FC = () => {
   return (
     <header
       role="banner"
-      className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border transition-colors duration-200"
+      className="fixed top-4 left-4 right-4 sm:top-6 sm:left-8 sm:right-8 z-40 max-w-6xl mx-auto rounded-full backdrop-blur-2xl bg-[#0e0e0e]/80 border border-white/10 shadow-[0_12px_36px_rgba(0,0,0,0.4),inset_0_1px_rgba(255,255,255,0.15)] transition-all duration-300"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Name / Logo */}
+      <div className="px-5 sm:px-8 h-16 sm:h-18 flex items-center justify-between">
+        {/* Name / Wordmark */}
         <Link
           href="/#top"
           data-testid="nav-logo"
           onClick={(e) => handleAnchorClick(e, '#top')}
-          className="group flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground rounded p-1"
+          className="group flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground rounded px-1"
         >
-          <span className="font-light tracking-tight text-lg text-foreground group-hover:text-white transition-colors">
+          <span className="font-light tracking-tight text-base sm:text-lg text-foreground group-hover:text-white transition-colors">
             {siteMeta.name}
           </span>
-          <span className="text-[10px] tracking-widest text-muted font-mono uppercase">
-            {siteMeta.role.split(' ')[0]} Engineering
+          <span className="text-[9px] tracking-widest text-zinc-500 font-mono uppercase">
+            Systems & Intelligence
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav role="navigation" aria-label="Main Navigation" className="hidden md:flex items-center space-x-8">
+        {/* Desktop Navigation with SignalText */}
+        <nav role="navigation" aria-label="Main Navigation" className="hidden md:flex items-center space-x-2 lg:space-x-4">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
               data-testid={link.testId}
               onClick={(e) => handleAnchorClick(e, link.targetId)}
-              className="text-sm font-light text-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground rounded px-1.5 py-0.5"
+              className="text-xs font-mono uppercase tracking-wider text-muted hover:text-foreground transition-all px-3 py-2 rounded-lg hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
             >
-              {link.label}
+              <SignalText text={link.label} />
             </Link>
           ))}
 
@@ -117,24 +116,25 @@ export const Header: React.FC = () => {
             onClick={toggleMotion}
             aria-pressed={isMotionEnabled}
             aria-label={`Toggle animation motion. Currently ${isMotionEnabled ? 'enabled' : 'reduced'}`}
-            className="flex items-center space-x-1.5 text-xs font-mono uppercase tracking-widest px-3 py-1.5 rounded-full border border-border hover:border-muted text-muted hover:text-foreground transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+            className="flex items-center space-x-1.5 text-[11px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full border border-border hover:border-muted text-muted hover:text-foreground transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground ml-2"
           >
             {isMotionEnabled ? (
-              <Activity className="w-3.5 h-3.5 text-emerald-400" />
+              <Activity className="w-3 h-3 text-emerald-400" />
             ) : (
-              <Sparkles className="w-3.5 h-3.5 text-zinc-500" />
+              <Sparkles className="w-3 h-3 text-zinc-500" />
             )}
-            <span>Motion: {isMotionEnabled ? 'ON' : 'OFF'}</span>
+            <span>MOTION {isMotionEnabled ? 'ON' : 'OFF'}</span>
           </button>
 
-          {/* Primary CTA */}
+          {/* Primary CTA with subtle arrow hover */}
           <Link
             href="/#contact"
             data-testid="nav-cta-contact"
             onClick={(e) => handleAnchorClick(e, '#contact')}
-            className="text-xs uppercase tracking-widest font-mono bg-foreground text-background font-semibold px-4 py-2 rounded-full hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group relative inline-flex items-center space-x-1.5 text-xs uppercase tracking-widest font-mono bg-gradient-to-r from-zinc-200 to-white text-background font-semibold px-5 py-2.5 rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all ml-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
           >
-            Let's talk
+            <SignalText text="Let's talk" />
+            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
         </nav>
 
@@ -146,7 +146,7 @@ export const Header: React.FC = () => {
             onClick={toggleMotion}
             aria-pressed={isMotionEnabled}
             aria-label={`Toggle motion. Currently ${isMotionEnabled ? 'on' : 'off'}`}
-            className="p-2 text-xs font-mono border border-border rounded-full text-muted hover:text-foreground"
+            className="p-1.5 text-[10px] font-mono border border-border rounded-full text-muted hover:text-foreground"
           >
             {isMotionEnabled ? 'M:ON' : 'M:OFF'}
           </button>
@@ -166,7 +166,7 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer (Accessible Focus Trap) */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div
           id="mobile-drawer"
@@ -174,7 +174,7 @@ export const Header: React.FC = () => {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation"
-          className="fixed inset-0 top-20 bg-background/95 backdrop-blur-xl z-50 flex flex-col px-6 py-8 md:hidden border-t border-border"
+          className="fixed inset-x-0 top-20 bg-background/95 backdrop-blur-2xl z-50 flex flex-col px-6 py-8 md:hidden border-t border-border rounded-b-3xl shadow-2xl"
         >
           <nav className="flex flex-col space-y-6">
             {navLinks.map((link) => (
@@ -202,4 +202,3 @@ export const Header: React.FC = () => {
     </header>
   );
 };
-
